@@ -1,0 +1,8 @@
+signUp: Registreeri
+resetPassword: Lähtestage parool
+mail: Meil
+invalid: Kehtetu
+code: Kinnituskood
+accountExist: See konto on juba olemas, logige otse sisse
+accountNotExist: Kontot pole olemas, palun registreeruge esmalt
+passwordError: Parooliviga, ununemise korral lähtestage

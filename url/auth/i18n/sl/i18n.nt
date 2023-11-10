@@ -1,0 +1,8 @@
+signUp: Prijavite se
+resetPassword: Ponastavitev gesla
+mail: E-naslov
+invalid: Neveljavno
+code: Koda za preverjanje
+accountExist: Ta račun že obstaja, prijavite se neposredno
+accountNotExist: Račun ne obstaja, najprej se prijavite
+passwordError: Napaka gesla, ponastavite, če ste pozabili

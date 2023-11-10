@@ -1,0 +1,8 @@
+signUp: Prijavite se
+resetPassword: Resetiranje lozinke
+mail: E-mail
+invalid: Neispravno
+code: Kontrolni kod
+accountExist: Ovaj račun već postoji, prijavite se izravno
+accountNotExist: Račun ne postoji, prvo se prijavite
+passwordError: Pogreška lozinke, poništite je ako ste zaboravili

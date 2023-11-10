@@ -1,0 +1,8 @@
+signUp: Mag-signUp
+resetPassword: I-reset ang Password
+mail: Email
+invalid: Di-wasto
+code: Verification Code
+accountExist: Ang Account na ito ay Umiiral na, Direktang Mag-sign In
+accountNotExist: Hindi Umiiral ang Account, Mangyaring Mag-signUp muna
+passwordError: Error sa Password, I-reset Kung Nakalimutan

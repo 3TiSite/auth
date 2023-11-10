@@ -1,0 +1,8 @@
+signUp: SignUp
+resetPassword: I-reset ang Password
+mail: Email
+invalid: Dili balido
+code: Verification Code
+accountExist: Kini nga Account Anaa na, Pag-signIn Direkta
+accountNotExist: Walay Account, Palihog SignUp Una
+passwordError: Sayop sa Password, I-reset Kung Nakalimtan

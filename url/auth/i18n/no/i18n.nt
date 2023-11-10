@@ -1,0 +1,8 @@
+signUp: Melde deg på
+resetPassword: Tilbakestille passord
+mail: E-post
+invalid: Ugyldig
+code: Bekreftelseskode
+accountExist: Denne kontoen eksisterer allerede, logg på direkte
+accountNotExist: Kontoen eksisterer ikke. Registrer deg først
+passwordError: Passordfeil, tilbakestill hvis glemt

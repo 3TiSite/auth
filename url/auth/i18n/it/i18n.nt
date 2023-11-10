@@ -1,0 +1,8 @@
+signUp: Iscrizione
+resetPassword: Resetta la password
+mail: E-mail
+invalid: Non valido
+code: Codice di verifica
+accountExist: Questo account esiste già, accedi direttamente
+accountNotExist: Account non esistente, registrati prima
+passwordError: Errore password, reimposta se dimenticata

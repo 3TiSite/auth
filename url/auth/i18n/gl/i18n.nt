@@ -1,0 +1,8 @@
+signUp: Incribirse
+resetPassword: Restablecer o contrasinal
+mail: Correo electrónico
+invalid: Non válido
+code: Código de verificación
+accountExist: Esta conta xa existe, inicia sesión directamente
+accountNotExist: A conta non existe, primeiro rexístrate
+passwordError: Erro de contrasinal, restablecelo se se esquece

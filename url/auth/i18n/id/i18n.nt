@@ -1,0 +1,8 @@
+signUp: Mendaftar
+resetPassword: Atur Ulang Kata Sandi
+mail: Surel
+invalid: Tidak sah
+code: Kode verifikasi
+accountExist: Akun Ini Sudah Ada, Langsung Masuk
+accountNotExist: Akun Belum Ada, Silakan Daftar Terlebih Dahulu
+passwordError: Password Error, Reset Jika Lupa

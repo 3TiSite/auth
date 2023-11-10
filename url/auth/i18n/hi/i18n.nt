@@ -1,0 +1,8 @@
+signUp: साइन अप करें
+resetPassword: पासवर्ड रीसेट
+mail: ईमेल
+invalid: अमान्य
+code: सत्यापन कोड
+accountExist: यह खाता पहले से मौजूद है, सीधे साइन इन करें
+accountNotExist: खाता मौजूद नहीं है, कृपया पहले साइनअप करें
+passwordError: पासवर्ड त्रुटि, भूल जाने पर रीसेट करें

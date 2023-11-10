@@ -1,0 +1,9 @@
+signUp: SignUp
+resetPassword: Reset Password
+mail: Email
+invalid: Invalid
+code: Verification Code
+accountExist: This Account Already Exist, SignIn Directly
+accountNotExist: Account Not Exist, Please SignUp First
+passwordError: Password Error, Reset If Forgotten
+

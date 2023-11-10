@@ -1,0 +1,8 @@
+signUp: Üye olmak
+resetPassword: Şifreyi yenile
+mail: E-posta
+invalid: Geçersiz
+code: Doğrulama kodu
+accountExist: Bu Hesap Zaten Mevcut, Doğrudan Oturum Açın
+accountNotExist: Hesap Mevcut Değil, Lütfen Önce Kaydolun
+passwordError: Şifre Hatası, Unutulursa Sıfırla

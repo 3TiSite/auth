@@ -1,0 +1,8 @@
+signUp: Inscrie-te
+resetPassword: Reseteaza parola
+mail: E-mail
+invalid: Invalid
+code: Cod de verificare
+accountExist: Acest cont există deja, conectați-vă direct
+accountNotExist: Contul nu există, vă rugăm mai întâi să vă înregistrați
+passwordError: Eroare de parolă, resetați dacă ați uitat

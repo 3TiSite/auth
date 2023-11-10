@@ -1,0 +1,8 @@
+signUp: 가입하기
+resetPassword: 암호를 재설정
+mail: 이메일
+invalid: 유효하지 않은
+code: 확인 코드
+accountExist: 이 계정은 이미 존재합니다. 직접 로그인하세요.
+accountNotExist: 계정이 존재하지 않습니다. 먼저 가입하십시오.
+passwordError: 비밀번호 오류, 잊어버린 경우 재설정

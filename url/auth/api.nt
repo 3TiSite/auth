@@ -1,0 +1,5 @@
+# GEN BY url.coffee . DON'T EDIT !
+authMe: User
+auth: action:u8;account:String;password:String;User
+authLi: UserStateLi
+authSignUp: account:String;password:String;verify_code:String;name:String;Uid

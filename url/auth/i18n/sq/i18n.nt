@@ -1,0 +1,8 @@
+signUp: Regjistrohu
+resetPassword: Rivendosni fjalëkalimin
+mail: Email
+invalid: E pavlefshme
+code: Kodi i Verifikimit
+accountExist: Kjo llogari ekziston tashmë, Hyni direkt
+accountNotExist: Llogaria nuk ekziston, ju lutemi Regjistrohuni së pari
+passwordError: Gabim fjalëkalimi, rivendos nëse harrohet

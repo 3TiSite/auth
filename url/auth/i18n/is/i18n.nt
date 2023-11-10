@@ -1,0 +1,8 @@
+signUp: Skráðu þig
+resetPassword: Endur stilla lykilorð
+mail: Tölvupóstur
+invalid: Ógilt
+code: Staðfestingarkóði
+accountExist: Þessi reikningur er þegar til, skráðu þig inn beint
+accountNotExist: Reikningur er ekki til, vinsamlegast skráðu þig fyrst
+passwordError: Lykilorðsvilla, endurstilla ef gleymist

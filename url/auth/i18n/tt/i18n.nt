@@ -1,0 +1,8 @@
+signUp: Теркәлергә
+resetPassword: Серсүзне яңадан урнаштыру
+mail: Электрон почта
+invalid: Яраксыз
+code: Тикшерү коды
+accountExist: Бу хисап инде бар, турыдан-туры керегез
+accountNotExist: Хисап юк, зинһар, башта SignUp
+passwordError: Серсүз хата, Онытылган булса кире кайтару

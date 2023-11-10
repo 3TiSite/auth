@@ -1,0 +1,8 @@
+signUp: Ndaftar
+resetPassword: Reset Sandi
+mail: Email
+invalid: ora sah
+code: Kode Verifikasi
+accountExist: Akun Iki Wis Ana, Langsung Mlebu
+accountNotExist: Akun Ora Ana, Mangga Ndaftar dhisik
+passwordError: Kesalahan Sandi, Reset Yen Kelalen

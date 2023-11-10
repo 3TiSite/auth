@@ -1,0 +1,8 @@
+signUp: SignUp
+resetPassword: Seta Phasewete gape
+mail: Imeile
+invalid: Sego ya makgonthe
+code: Khoutu ya Netefatšo
+accountExist: Akhaonto ye e šetše e le gona, Tsena ka go lebanya
+accountNotExist: Account Ga e gona, Hle SignUp Pele
+passwordError: Phošo ya Phasewete, Seta gape Ge e ba o Lebetše

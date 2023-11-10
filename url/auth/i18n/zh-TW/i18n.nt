@@ -1,0 +1,8 @@
+signUp: 註冊
+resetPassword: 重設密碼
+mail: 郵箱
+invalid: 無效
+code: 驗證碼
+accountExist: 該帳號已存在，請直接登錄
+accountNotExist: 帳號不存在，請先註冊
+passwordError: 密碼錯誤，如忘記可重設

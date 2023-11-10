@@ -1,0 +1,8 @@
+signUp: Kirjaudu
+resetPassword: Nollaa salasana
+mail: Sähköposti
+invalid: Virheellinen
+code: Vahvistuskoodi
+accountExist: Tämä tili on jo olemassa, kirjaudu sisään suoraan
+accountNotExist: Tiliä ei ole, rekisteröidy ensin
+passwordError: Salasanavirhe, nollaa jos unohdat

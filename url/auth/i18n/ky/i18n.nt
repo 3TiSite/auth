@@ -1,0 +1,8 @@
+signUp: Кирүү
+resetPassword: Сырсөздү кайра коюу
+mail: Email
+invalid: Жараксыз
+code: Текшерүү коду
+accountExist: Бул каттоо эсеби мурунтан эле бар, түз кириңиз
+accountNotExist: Каттоо эсеби жок, адегенде катталыңыз
+passwordError: Сырсөз катасы, унутулуп калса кайра коюу

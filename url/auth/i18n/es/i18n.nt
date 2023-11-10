@@ -1,0 +1,8 @@
+signUp: Inscribirse
+resetPassword: Restablecer la contraseña
+mail: Correo electrónico
+invalid: Inválido
+code: Código de verificación
+accountExist: Esta cuenta ya existe, inicie sesión directamente
+accountNotExist: La cuenta no existe, regístrese primero
+passwordError: Error de contraseña, restablecer si se olvida

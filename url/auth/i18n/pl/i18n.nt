@@ -1,0 +1,8 @@
+signUp: Zapisać się
+resetPassword: Zresetuj hasło
+mail: E-mail
+invalid: Nieważny
+code: Kod weryfikacyjny
+accountExist: To konto już istnieje. Zaloguj się bezpośrednio
+accountNotExist: Konto nie istnieje. Najpierw się zarejestruj
+passwordError: Błąd hasła, zresetuj, jeśli zapomniałeś

@@ -1,0 +1,8 @@
+signUp: Aanmelden
+resetPassword: Wachtwoord opnieuw instellen
+mail: E-mail
+invalid: Ongeldig
+code: Verificatie code
+accountExist: Dit account bestaat al, meld u direct aan
+accountNotExist: Account bestaat niet. Meld u eerst aan
+passwordError: Wachtwoordfout, reset indien vergeten

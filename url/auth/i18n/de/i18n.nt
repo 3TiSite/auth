@@ -1,0 +1,8 @@
+signUp: Melden Sie sich an
+resetPassword: Passwort zurücksetzen
+mail: Email
+invalid: Ungültig
+code: Bestätigungscode
+accountExist: Dieses Konto existiert bereits. Melden Sie sich direkt an
+accountNotExist: Konto existiert nicht, bitte melden Sie sich zuerst an
+passwordError: Passwortfehler, bei Vergessen zurücksetzen

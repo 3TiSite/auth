@@ -1,0 +1,8 @@
+signUp: ተመዝገቢ
+resetPassword: የይለፍ ቃል ዳግም አስጀምር
+mail: ኢሜይል
+invalid: ልክ ያልሆነ
+code: የማረጋገጫ የሚስጥር ቁጥር
+accountExist: ይህ መለያ አስቀድሞ አለ፣ በቀጥታ ይግቡ
+accountNotExist: መለያ የለም፣ እባክዎ መጀመሪያ ይመዝገቡ
+passwordError: የይለፍ ቃል ስህተት፣ ከተረሳ ዳግም አስጀምር

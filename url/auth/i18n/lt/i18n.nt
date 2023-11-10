@@ -1,0 +1,8 @@
+signUp: Registruotis
+resetPassword: Atstatyti slaptažodį
+mail: El. paštas
+invalid: Neteisinga
+code: Patvirtinimo kodas
+accountExist: Ši paskyra jau egzistuoja, prisijunkite tiesiogiai
+accountNotExist: Paskyros nėra, pirmiausia prisiregistruokite
+passwordError: Slaptažodžio klaida, iš naujo nustatykite, jei pamiršote

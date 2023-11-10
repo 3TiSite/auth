@@ -1,0 +1,8 @@
+signUp: Registra't
+resetPassword: Restablir la contrasenya
+mail: Correu electrònic
+invalid: Invàlid
+code: Codi de verificació
+accountExist: Aquest compte ja existeix, inicieu la sessió directament
+accountNotExist: El compte no existeix, primer registreu-vos
+passwordError: Error de contrasenya, restabliment si s'oblida

@@ -1,0 +1,8 @@
+signUp: Prihlásiť Se
+resetPassword: Obnoviť heslo
+mail: Email
+invalid: Neplatné
+code: Overovací kód
+accountExist: Tento účet už existuje, prihláste sa priamo
+accountNotExist: Účet neexistuje, najskôr sa zaregistrujte
+passwordError: Chyba hesla, v prípade zabudnutia resetujte

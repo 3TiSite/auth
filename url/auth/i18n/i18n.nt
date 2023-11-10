@@ -1,0 +1,7 @@
+lang:
+  zh: zh-TW ja km th lo
+  en:
+
+on:
+  end:
+    - @3-/i18n-rust

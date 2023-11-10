@@ -1,0 +1,8 @@
+signUp: SignUp
+resetPassword: Paroly täzeden düzmek
+mail: E-poçta iberiň
+invalid: Nädogry
+code: Barlag kody
+accountExist: Bu hasap eýýäm bar, göni giriň
+accountNotExist: Hasap ýok, ilki bilen gol çekiň
+passwordError: Parol ýalňyşlygy, unudylan bolsa täzeden düzmek

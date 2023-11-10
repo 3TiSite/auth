@@ -1,0 +1,8 @@
+signUp: Cofrestru
+resetPassword: Ailosod cyfrinair
+mail: Ebost
+invalid: Annilys
+code: Cod Dilysu
+accountExist: Mae'r Cyfrif hwn yn Bodoli Eisoes, Mewngofnodwch yn Uniongyrchol
+accountNotExist: Cyfrif Ddim Yn Bod, Cofrestrwch yn Gyntaf
+passwordError: Gwall Cyfrinair, Ailosod Os Wedi'i Anghofio

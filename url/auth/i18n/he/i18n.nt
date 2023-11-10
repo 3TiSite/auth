@@ -1,0 +1,8 @@
+signUp: הירשם
+resetPassword: לאפס את הסיסמה
+mail: אימייל
+invalid: לא חוקי
+code: קוד אימות
+accountExist: חשבון זה כבר קיים, היכנס ישירות
+accountNotExist: חשבון לא קיים, נא להירשם תחילה
+passwordError: שגיאת סיסמה, אפס אם נשכח

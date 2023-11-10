@@ -1,0 +1,31 @@
+[package]
+name = "captcha"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+anyhow = "1.0.75"
+t3 = { path = "../../lib/t3" }
+click_captcha = "0.1.15"
+rand = "0.8.5"
+sonic-rs = "0.2.3"
+tokio = { version = "1.33.0", features = [
+  "macros",
+  "rt",
+  "rt-multi-thread",
+  "time",
+  "sync"
+] }
+trt = "0.1.14"
+vb = "0.0.7"
+conn = { path = "../../lib/conn" }
+intbin = "0.0.5"
+fred = "7.0.0"
+axum = "0.6.20"
+prost = "0.12.1"
+tracing = "0.1.40"
+
+[build-dependencies]
+anyhow = "1.0.75"
+prost-build = "0.12.1"

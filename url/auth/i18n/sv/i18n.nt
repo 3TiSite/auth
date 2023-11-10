@@ -1,0 +1,8 @@
+signUp: Bli Medlem
+resetPassword: Återställ lösenord
+mail: E-post
+invalid: Ogiltig
+code: Verifierings kod
+accountExist: Detta konto finns redan, logga in direkt
+accountNotExist: Kontot existerar inte, vänligen registrera dig först
+passwordError: Lösenordsfel, återställ om glömt

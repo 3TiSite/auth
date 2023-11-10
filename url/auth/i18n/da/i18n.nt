@@ -1,0 +1,8 @@
+signUp: Tilmelde
+resetPassword: Nulstille kodeord
+mail: E-mail
+invalid: Ugyldig
+code: Verifikationskode
+accountExist: Denne konto findes allerede, log ind direkte
+accountNotExist: Konto eksisterer ikke. Tilmeld dig først
+passwordError: Adgangskodefejl, nulstil hvis glemt

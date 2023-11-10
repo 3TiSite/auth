@@ -1,0 +1,8 @@
+signUp: SignUp
+resetPassword: Reset password
+mail: Email
+invalid: Irritum
+code: Codex autenticationis
+accountExist: Haec Ratio iam est, SignIn Directe
+accountNotExist: Ratio non est, quaeso SignUp Primum
+passwordError: Error Password, Reset si oblitus
