@@ -3054,6 +3054,7 @@ dependencies = [
  "fred",
  "gid",
  "intbin",
+ "kfn",
  "sk",
  "tracing",
  "ub64",

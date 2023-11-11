@@ -79,14 +79,14 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   }
 
   let uid = &r[0][..];
+  let id = bin_u64(uid);
   let name = name.as_bytes();
-  let client_bin = &client.bin()[..];
 
   let p = KV.pipeline();
   p.hset(K::NAME, (uid, name)).await?;
-  crate::db::sign_in::client(&p, client_bin, uid).await?;
+  client.sign_in(&p, uid).await?;
   p.all().await?;
 
   client.ver_incr();
-  Ok(api::Uid { id: bin_u64(uid) })
+  Ok(api::Uid { id })
 }

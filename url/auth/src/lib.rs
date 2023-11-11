@@ -3,7 +3,7 @@ t3::api!();
 mod _mod;
 urlmod!();
 mod db;
-use crate::db::sign_in::{self, sign_in, SignIn};
+use crate::db::sign_in::{sign_in, SignIn};
 #[allow(non_snake_case)]
 pub mod K;
 mod code;
@@ -49,7 +49,7 @@ pub async fn sign_in_name(client: &Client, id: u64) -> Result<String> {
   Ok(if set {
     let p = KV.pipeline();
     p.hget(K::NAME, id_bin).await?;
-    sign_in::client(&p, &client.bin(), id_bin).await?;
+    client.sign_in(&p, id_bin).await?;
     let li: (String, (), ()) = p.all().await?;
     client.ver_incr();
     li.0

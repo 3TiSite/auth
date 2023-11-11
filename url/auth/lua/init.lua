@@ -16,7 +16,6 @@ local intBin = function(n)
   return table.concat(t)
 end
 
-
 function zsetId(KEYS, ARGS)
   local zset = KEYS[1]
   local key = ARGS[1]

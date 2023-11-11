@@ -1,38 +1,8 @@
-use conn::{
-  fred::interfaces::{FunctionInterface, RedisResult, SortedSetsInterface},
-  KV,
-};
+use conn::{fred::interfaces::FunctionInterface, KV};
 use intbin::{bin_u64, u64_bin};
 use tokio::task::spawn_blocking;
 
 use crate::{db, lua, K};
-
-pub async fn client<C: SortedSetsInterface + Sync>(
-  p: &C,
-  client_bin: &[u8],
-  uid: &[u8],
-) -> RedisResult<()> {
-  let now = util::sec() as f64;
-  p.zadd(
-    K::client_uid(client_bin),
-    None,
-    None,
-    false,
-    false,
-    (now, uid),
-  )
-  .await?;
-  p.zadd(
-    K::uid_client(uid),
-    None,
-    None,
-    false,
-    false,
-    (now, client_bin),
-  )
-  .await?;
-  Ok(())
-}
 
 pub enum SignIn {
   Ok(u64),
