@@ -5,7 +5,7 @@ use conn::{
 use intbin::{bin_u64, u64_bin};
 use tokio::task::spawn_blocking;
 
-use crate::{lua, K};
+use crate::{db, lua, K};
 
 pub async fn client<C: SortedSetsInterface + Sync>(
   p: &C,
@@ -42,10 +42,8 @@ pub enum SignIn {
 
 pub async fn sign_in(host: &str, account: &str, password: impl Into<String>) -> t3::Result<SignIn> {
   let p = KV.pipeline();
-  p.zscore(K::HOST_ID, xstr::word_reverse(&host, ".")).await?;
-  p.zscore(K::MAIL_ID, xstr::word_reverse(&account, "@."))
-    .await?;
-
+  db::id::host(&p, host).await?;
+  db::id::mail(&p, account).await?;
   let (host_id, mail_id): (Option<u64>, Option<u64>) = p.all().await?;
   let host_id = tp::host_is_bind(host_id)?;
 

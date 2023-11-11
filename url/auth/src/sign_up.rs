@@ -1,6 +1,6 @@
 use client::Client;
 use conn::{
-  fred::interfaces::{FunctionInterface, HashesInterface, SortedSetsInterface},
+  fred::interfaces::{FunctionInterface, HashesInterface},
   KV,
 };
 use intbin::{bin_u64, u64_bin};
@@ -9,8 +9,8 @@ use tokio::task::spawn_blocking;
 use xstr::lowtrim;
 
 use crate::{
-  api, code, lua, throw,
-  K::{self, HOST_ID, MAIL_ID},
+  api, code, db, lua, throw,
+  K::{self, MAIL_ID},
 };
 
 pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!() {
@@ -41,13 +41,9 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   }
   let host = t3::origin_tld(&header)?;
   let p = KV.pipeline();
-  p.zscore(HOST_ID, xstr::word_reverse(&host, ".")).await?;
-  p.fcall(
-    lua::ZSET_ID,
-    &[MAIL_ID],
-    &[xstr::word_reverse(&account, "@.").as_str()],
-  )
-  .await?;
+  db::id::host(&p, &host).await?;
+  p.fcall(lua::ZSET_ID, &[MAIL_ID], [db::id::reverse_mail(&account)])
+    .await?;
 
   let (host_id, mail_id): (Option<u64>, u64) = p.all().await?;
 
