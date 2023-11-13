@@ -15,5 +15,5 @@ pub async fn post() -> t3::msg!() {
     sleep(sleep_duration).await;
   }
 
-  Ok(captcha)
+  Ok::<api::Captcha, _>(captcha)
 }

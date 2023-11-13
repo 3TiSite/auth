@@ -1,6 +1,9 @@
 # GEN BY url.coffee . DON'T EDIT !
-authMe: User
-auth: action:u8;account:String;password:String;User
-authExit: ()
+authExit: id:u64;User
+authExitAll: ()
 authLi: UserStateLi
+authMe: User
+authRm: id:u64;User
+authSet: id:u64;User
 authSignUp: account:String;password:String;verify_code:String;name:String;Uid
+auth: action:u8;account:String;password:String;User

@@ -15,7 +15,6 @@ pub async fn post(client: Client) -> t3::msg!() {
   if !id_score_li.is_empty() {
     let uid_bin_li: Vec<_> = id_score_li.iter().map(|i| &i.0[..]).collect();
 
-    dbg!(&uid_bin_li);
     let p = KV.pipeline();
     p.hmget(K::UID_ACCOUNT, uid_bin_li.clone()).await?;
     p.hmget(K::NAME, uid_bin_li.clone()).await?;

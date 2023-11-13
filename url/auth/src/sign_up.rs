@@ -87,6 +87,5 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   client.sign_in(&p, uid).await?;
   p.all().await?;
 
-  client.ver_incr();
   Ok(api::Uid { id })
 }
