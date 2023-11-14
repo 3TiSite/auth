@@ -25,3 +25,8 @@ message UserStateLi
 {
   repeated UserState li = 1;
 }
+
+message ConfMeta
+{
+  string mail = 1;
+}

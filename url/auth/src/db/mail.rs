@@ -34,10 +34,10 @@ pub async fn host_send(
   password: String,
 ) -> t3::Result<()> {
   use email_address::EmailAddress;
-  let lang = lang::header(&header);
+  let lang = lang::header(header);
   if EmailAddress::is_valid(&account) {
-    send(kind, lang, &host, account, password).await?;
-    return Ok(().into());
+    send(kind, lang, host, account, password).await?;
+    return Ok(());
   }
   throw!(header, account, MAIL, INVALID);
 }

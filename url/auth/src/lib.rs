@@ -24,10 +24,10 @@ pub const SIGN_IN: u8 = 1; // 登录
 pub async fn sign_in_name(client: &Client, id: u64) -> Result<String> {
   let id_bin = &u64_bin(id)[..];
   let client_uid = client.uid().await?;
-  let set = if client_uid.is_none() {
-    true
+  let set = if let Some(uid) = client_uid {
+    id != uid
   } else {
-    id != client_uid.unwrap()
+    false
   };
 
   Ok(if set {

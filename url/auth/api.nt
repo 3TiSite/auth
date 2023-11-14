@@ -1,4 +1,5 @@
 # GEN BY url.coffee . DON'T EDIT !
+authConfMeta: id:u64;ConfMeta
 authExit: id:u64;User
 authExitAll: ()
 authLi: UserStateLi

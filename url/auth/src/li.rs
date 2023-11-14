@@ -29,5 +29,5 @@ pub async fn post(client: Client) -> t3::msg!() {
       })
     }
   }
-  return Ok(api::UserStateLi { li });
+  Ok(api::UserStateLi { li })
 }
