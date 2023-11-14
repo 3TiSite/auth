@@ -3,6 +3,8 @@ authExit: id:u64;User
 authExitAll: ()
 authLi: UserStateLi
 authMe: User
+authPasswd: account:String;password:String;code:String;User
+authReset: account:String;password:String;()
 authRm: id:u64;User
 authSet: id:u64;User
 authSignUp: account:String;password:String;verify_code:String;name:String;Uid

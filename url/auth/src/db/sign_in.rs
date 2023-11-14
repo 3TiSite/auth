@@ -2,7 +2,7 @@ use conn::{fred::interfaces::FunctionInterface, KV};
 use intbin::{bin_u64, u64_bin};
 use tokio::task::spawn_blocking;
 
-use crate::{db, lua, K};
+use crate::{db::host_bin_mail_id, lua, K};
 
 pub enum SignIn {
   Ok(u64),
@@ -11,14 +11,8 @@ pub enum SignIn {
 }
 
 pub async fn sign_in(host: &str, account: &str, password: impl Into<String>) -> t3::Result<SignIn> {
-  let p = KV.pipeline();
-  db::id::host(&p, host).await?;
-  db::id::mail(&p, account).await?;
-  let (host_id, mail_id): (Option<u64>, Option<u64>) = p.all().await?;
-  let host_id = tp::host_is_bind(host_id)?;
-
+  let (host_bin, mail_id) = host_bin_mail_id(host, account).await?;
   if let Some(mail_id) = mail_id {
-    let host_bin = u64_bin(host_id);
     let mail_bin = u64_bin(mail_id);
     let uid_passwd: Option<Vec<Vec<u8>>> = KV
       .fcall_ro(

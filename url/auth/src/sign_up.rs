@@ -9,7 +9,9 @@ use tokio::task::spawn_blocking;
 use xstr::lowtrim;
 
 use crate::{
-  api, code, db, lua, throw,
+  api, db,
+  db::code,
+  i18n, lua, throw,
   K::{self, MAIL_ID},
 };
 
@@ -29,14 +31,7 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   };
 
   let account = lowtrim(account);
-  let verify_code = verify_code.trim();
-  let hours = util::hours();
-  let code = code(&account, &password, hours);
-  let mut verifyed = code == verify_code;
-  if !verifyed {
-    verifyed = crate::code(&account, &password, hours - 1) == verify_code;
-  }
-  if !verifyed {
+  if !code::verify(i18n::SIGN_UP, &account, &password, verify_code) {
     throw!(header, code, CODE, INVALID);
   }
   let host = t3::origin_tld(&header)?;

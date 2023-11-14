@@ -59,3 +59,14 @@ function mailUidPasswd(KEYS, ARGS)
   end
 end
 
+function mailUidPasswdSet(KEYS, ARGS)
+  -- flags no-writes
+  local mail_uid, passwd_key = unpack(KEYS)
+  local mail_id, passwd = unpack(ARGS)
+  local uid = redis.call("ZSCORE", mail_uid, mail_id)
+  if uid then
+    uid = intBin(tonumber(uid))
+    redis.call("HSET", passwd_key, uid, passwd)
+    return uid
+  end
+end

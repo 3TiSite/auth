@@ -7,36 +7,19 @@ mod r#macro;
 use crate::db::sign_in::{sign_in, SignIn};
 #[allow(non_snake_case)]
 pub mod K;
-mod code;
 mod i18n;
 mod lua;
 
 use anyhow::Result;
 use axum::http::header::HeaderMap;
 use client::Client;
-pub use code::code;
 use conn::{fred::interfaces::HashesInterface, KV};
-use email_address::EmailAddress;
 use intbin::u64_bin;
 use t3::ok;
 use xstr::lowtrim;
 
 pub const SIGN_UP: u8 = 0; // 注册
 pub const SIGN_IN: u8 = 1; // 登录
-
-pub async fn sign_up_mail(
-  header: &HeaderMap,
-  host: &str,
-  account: String,
-  password: String,
-) -> t3::Result<()> {
-  let lang = lang::header(&header);
-  if EmailAddress::is_valid(&account) {
-    db::sign_up_mail(lang, &host, account, password).await?;
-    return Ok(().into());
-  }
-  throw!(header, account, MAIL, INVALID);
-}
 
 pub async fn sign_in_name(client: &Client, id: u64) -> Result<String> {
   let id_bin = &u64_bin(id)[..];
@@ -78,7 +61,7 @@ pub async fn post(client: Client, header: HeaderMap, json: String) -> t3::msg!()
     }
     SignIn::AccountNotExist => {
       if action == SIGN_UP {
-        return ok!(sign_up_mail(&header, host, account, password).await?);
+        return ok!(db::mail::host_send(i18n::SIGN_UP, &header, host, account, password).await?);
       }
       throw!(header, account, ACCOUNT_NOT_EXIST);
     }
