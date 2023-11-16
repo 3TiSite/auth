@@ -6,3 +6,4 @@ code: Vahvistuskoodi
 accountExist: Tämä tili on jo olemassa, kirjaudu sisään suoraan
 accountNotExist: Tiliä ei ole, rekisteröidy ensin
 passwordError: Salasanavirhe, nollaa jos unohdat
+mailUsed: Tämä sähköposti on jo muiden käytössä

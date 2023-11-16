@@ -6,3 +6,4 @@ code: Codex autenticationis
 accountExist: Haec Ratio iam est, SignIn Directe
 accountNotExist: Ratio non est, quaeso SignUp Primum
 passwordError: Error Password, Reset si oblitus
+mailUsed: Haec Email iam ab aliis

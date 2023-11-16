@@ -6,3 +6,4 @@ code: Código de verificación
 accountExist: Esta cuenta ya existe, inicie sesión directamente
 accountNotExist: La cuenta no existe, regístrese primero
 passwordError: Error de contraseña, restablecer si se olvida
+mailUsed: Este correo electrónico ya lo utilizan otros

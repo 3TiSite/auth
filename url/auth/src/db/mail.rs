@@ -6,7 +6,7 @@ pub const CODE: &str = "${code}";
 
 pub async fn send(
   kind: &[u8],
-  lang: &str,
+  lang: u8,
   host: &str,
   account: String,
   password: String,

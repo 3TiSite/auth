@@ -6,3 +6,4 @@ code: Kod weryfikacyjny
 accountExist: To konto już istnieje. Zaloguj się bezpośrednio
 accountNotExist: Konto nie istnieje. Najpierw się zarejestruj
 passwordError: Błąd hasła, zresetuj, jeśli zapomniałeś
+mailUsed: Ten adres e-mail jest już używany przez innych

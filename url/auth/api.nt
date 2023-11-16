@@ -4,6 +4,8 @@ authExit: id:u64;User
 authExitAll: ()
 authLi: UserStateLi
 authMe: User
+authName: uid:u64;name:String;()
+authNewMail: uid:u64;mail:String;()
 authPasswd: account:String;password:String;code:String;User
 authReset: account:String;password:String;()
 authRm: id:u64;User

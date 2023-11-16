@@ -6,3 +6,4 @@ code: 验证码
 accountExist: 该帐号已存在，请直接登录
 accountNotExist: 帐号不存在，请先注册
 passwordError: 密码错误，如忘记可重设
+mailUsed: 该邮箱已被其他账户使用

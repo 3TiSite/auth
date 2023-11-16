@@ -6,3 +6,4 @@ code: Verifikasie kode
 accountExist: Hierdie rekening bestaan ​​reeds, meld direk aan
 accountNotExist: Rekening bestaan ​​nie, Registreer asseblief eers
 passwordError: Wagwoordfout, stel terug as vergeet
+mailUsed: Hierdie e-pos word reeds deur ander gebruik

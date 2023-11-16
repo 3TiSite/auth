@@ -8,7 +8,7 @@ use t3::HeaderMap;
 use xstr::lowtrim;
 
 use crate::{
-  api,
+  api, db,
   db::{code, host_bin_mail_id},
   i18n, lua, throw, K,
 };
@@ -35,11 +35,15 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
       let uid = &uid[..];
       let p = KV.pipeline();
       p.hget(K::NAME, uid).await?;
+      p.hget(K::LANG, uid).await?;
       client.sign_in(&p, uid).await?;
-      let li: (String, (), ()) = p.all().await?;
+      let li: (String, _, (), ()) = p.all().await?;
+      let lang = db::lang::get(li.1);
+
       return Ok(api::User {
         id: bin_u64(uid),
         name: li.0,
+        lang: lang as _,
       });
     }
   }

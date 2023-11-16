@@ -6,3 +6,4 @@ code: Ověřovací kód
 accountExist: Tento účet již existuje, přihlaste se přímo
 accountNotExist: Účet neexistuje, nejprve se prosím zaregistrujte
 passwordError: Chyba hesla, v případě zapomenutí resetujte
+mailUsed: Tento e-mail již používají ostatní

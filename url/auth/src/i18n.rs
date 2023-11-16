@@ -21,6 +21,8 @@ pub const ACCOUNT_NOT_EXIST: &[u8] = b"accountNotExist";
 
 pub const PASSWORD_ERROR: &[u8] = b"passwordError";
 
+pub const MAIL_USED: &[u8] = b"mailUsed";
+
 pub const VERIFY_MAIL: &[u8] = b"verifyMail";
 
 lang::gen!(auth);

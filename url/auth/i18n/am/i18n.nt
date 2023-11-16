@@ -6,3 +6,4 @@ code: የማረጋገጫ የሚስጥር ቁጥር
 accountExist: ይህ መለያ አስቀድሞ አለ፣ በቀጥታ ይግቡ
 accountNotExist: መለያ የለም፣ እባክዎ መጀመሪያ ይመዝገቡ
 passwordError: የይለፍ ቃል ስህተት፣ ከተረሳ ዳግም አስጀምር
+mailUsed: ይህ ኢሜይል አስቀድሞ በሌሎች ጥቅም ላይ ውሏል

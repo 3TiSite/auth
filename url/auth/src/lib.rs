@@ -21,24 +21,25 @@ use xstr::lowtrim;
 pub const SIGN_UP: u8 = 0; // 注册
 pub const SIGN_IN: u8 = 1; // 登录
 
-pub async fn sign_in_name(client: &Client, id: u64) -> Result<String> {
-  let id_bin = &u64_bin(id)[..];
+pub async fn sign_in_lang_name(client: &Client, id: u64) -> Result<(u8, String)> {
   let client_uid = client.uid().await?;
-  let set = if let Some(uid) = client_uid {
+  let id_bin = &u64_bin(id)[..];
+  let p = KV.pipeline();
+  p.hget(K::LANG, id_bin).await?;
+  let lang_name = if if let Some(uid) = client_uid {
     id != uid
   } else {
-    false
-  };
-
-  Ok(if set {
-    let p = KV.pipeline();
+    true
+  } {
     p.hget(K::NAME, id_bin).await?;
     client.sign_in(&p, id_bin).await?;
-    let li: (String, (), ()) = p.all().await?;
-    li.0
+    let li: (_, _, (), ()) = p.all().await?;
+    (li.0, li.1)
   } else {
-    KV.hget(K::NAME, id_bin).await?
-  })
+    p.hget(K::NAME, id_bin).await?;
+    p.all().await?
+  };
+  Ok((db::lang::get(lang_name.0), lang_name.1))
 }
 
 pub async fn post(client: Client, header: HeaderMap, json: String) -> t3::msg!() {
@@ -50,8 +51,12 @@ pub async fn post(client: Client, header: HeaderMap, json: String) -> t3::msg!()
 
   match sign_in(host, &account, &password).await? {
     SignIn::Ok(id) => {
-      let name = sign_in_name(&client, id).await?;
-      ok!(api::User { id, name })
+      let (lang, name) = sign_in_lang_name(&client, id).await?;
+      ok!(api::User {
+        id,
+        name,
+        lang: lang as _
+      })
     }
     SignIn::PasswdError => {
       if action == SIGN_UP {

@@ -73,13 +73,15 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
     }
   }
 
-  let uid = &r[0][..];
-  let id = bin_u64(uid);
+  let uid_bin = &r[0][..];
+  let id = bin_u64(uid_bin);
   let name = name.as_bytes();
+  let lang = lang::header_bin(&header);
 
   let p = KV.pipeline();
-  p.hset(K::NAME, (uid, name)).await?;
-  client.sign_in(&p, uid).await?;
+  p.hset(K::NAME, (uid_bin, name)).await?;
+  db::lang::set(&p, uid_bin, lang).await?;
+  client.sign_in(&p, uid_bin).await?;
   p.all().await?;
 
   Ok(api::Uid { id })

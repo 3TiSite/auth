@@ -6,3 +6,4 @@ code: 驗證碼
 accountExist: 該帳號已存在，請直接登錄
 accountNotExist: 帳號不存在，請先註冊
 passwordError: 密碼錯誤，如忘記可重設
+mailUsed: 該郵箱已被其他賬戶使用

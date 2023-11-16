@@ -6,3 +6,4 @@ code: Kontrolni kod
 accountExist: Ovaj račun već postoji, prijavite se izravno
 accountNotExist: Račun ne postoji, prvo se prijavite
 passwordError: Pogreška lozinke, poništite je ako ste zaboravili
+mailUsed: Ovu e-poštu već koriste drugi

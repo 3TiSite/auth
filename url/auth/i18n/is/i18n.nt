@@ -6,3 +6,4 @@ code: Staðfestingarkóði
 accountExist: Þessi reikningur er þegar til, skráðu þig inn beint
 accountNotExist: Reikningur er ekki til, vinsamlegast skráðu þig fyrst
 passwordError: Lykilorðsvilla, endurstilla ef gleymist
+mailUsed: Þessi tölvupóstur er þegar notaður af öðrum

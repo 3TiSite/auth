@@ -6,3 +6,4 @@ code: Kode verifikasi
 accountExist: Akun Ini Sudah Ada, Langsung Masuk
 accountNotExist: Akun Belum Ada, Silakan Daftar Terlebih Dahulu
 passwordError: Password Error, Reset Jika Lupa
+mailUsed: Email Ini Sudah Digunakan Oleh Orang Lain

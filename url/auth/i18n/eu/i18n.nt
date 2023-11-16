@@ -6,3 +6,4 @@ code: Egiaztapen Kodea
 accountExist: Kontu hau dagoeneko badago, hasi saioa zuzenean
 accountNotExist: Kontua ez dago, mesedez erregistratu lehenik
 passwordError: Pasahitz errorea, berrezarri ahazten bazaizu
+mailUsed: Email hau beste batzuek erabiltzen dute dagoeneko

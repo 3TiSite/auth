@@ -6,4 +6,4 @@ code: Verification Code
 accountExist: This Account Already Exist, SignIn Directly
 accountNotExist: Account Not Exist, Please SignUp First
 passwordError: Password Error, Reset If Forgotten
-
+mailUsed: This Email Already Used By Others
