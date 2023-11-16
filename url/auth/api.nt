@@ -2,6 +2,7 @@
 authConfMeta: id:u64;ConfMeta
 authExit: id:u64;User
 authExitAll: ()
+authLang: ()
 authLi: UserStateLi
 authMe: User
 authName: uid:u64;name:String;()
