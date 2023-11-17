@@ -26,7 +26,7 @@ pub async fn sign_in_lang_name(client: &Client, id: u64) -> Result<(u8, String)>
   let id_bin = &u64_bin(id)[..];
   let p = KV.pipeline();
   p.hget(K::LANG, id_bin).await?;
-  let lang_name = if if let Some(uid) = client_uid {
+  let (lang, name) = if if let Some(uid) = client_uid {
     id != uid
   } else {
     true
@@ -39,7 +39,7 @@ pub async fn sign_in_lang_name(client: &Client, id: u64) -> Result<(u8, String)>
     p.hget(K::NAME, id_bin).await?;
     p.all().await?
   };
-  Ok((db::lang::get(lang_name.0), lang_name.1))
+  Ok((db::lang::get(lang), name))
 }
 
 pub async fn post(client: Client, header: HeaderMap, json: String) -> t3::msg!() {

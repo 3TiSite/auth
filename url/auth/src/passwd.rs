@@ -37,13 +37,12 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
       p.hget(K::NAME, uid).await?;
       p.hget(K::LANG, uid).await?;
       client.sign_in(&p, uid).await?;
-      let li: (String, _, (), ()) = p.all().await?;
-      let lang = db::lang::get(li.1);
+      let (name, lang, ..): (String, _, (), ()) = p.all().await?;
 
       return Ok(api::User {
         id: bin_u64(uid),
-        name: li.0,
-        lang: lang as _,
+        name,
+        lang: db::lang::get(lang) as _,
       });
     }
   }

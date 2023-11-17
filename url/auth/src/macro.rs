@@ -11,10 +11,12 @@ macro_rules! client {
     let client = $client;
     let p = KV.pipeline();
     client.$action(&p, uid_bin).await?;
-    p.all().await?;
+    client.zumax(&p).await?;
+    let uid_bin: Option<Vec<u8>> = p.last().await?;
+    client.set_uid_bin(uid_bin.clone());
 
-    if let Some(uid) = client.uid().await? {
-      let uid_bin = &u64_bin(uid)[..];
+    if let Some(uid_bin) = uid_bin {
+      let uid_bin = &uid_bin[..];
       let p = KV.pipeline();
       p.hget(K::NAME, uid_bin).await?;
       p.hget(K::LANG, uid_bin).await?;
