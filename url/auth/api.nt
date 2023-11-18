@@ -1,15 +1,16 @@
 # GEN BY url.coffee . DON'T EDIT !
-authConfMeta: id:u64;ConfMeta
-authExit: id:u64;User
-authExitAll: ()
-authLang: ()
-authLi: UserStateLi
-authMe: User
-authName: uid:u64;name:String;()
-authNewMail: uid:u64;mail:String;()
-authPasswd: account:String;password:String;code:String;User
-authReset: account:String;password:String;()
-authRm: id:u64;User
-authSet: id:u64;User
-authSignUp: account:String;password:String;verify_code:String;name:String;Uid
-auth: action:u8;account:String;password:String;User
+authConfMeta: id:u64→ConfMeta
+authExit: id:u64→User
+authExitAll: →()
+authLang: →()
+authLi: →UserStateLi
+authMe: →User
+authName: uid:u64;name:String→()
+authNewMail: 🚧 uid:u64;new_mail:String→Mail
+authPasswd: account:String;password:String;code:String→User
+authReset: 🚧 account:String;password:String→()
+authRm: id:u64→User
+authSet: id:u64→User
+authSetMail: uid:u64;new_mail:String;old_code:Option<String>;new_code:String→()
+authSignUp: account:String;password:String;verify_code:String;name:String→Uid
+auth: 🚧 action:u8;account:String;password:String→User

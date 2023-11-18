@@ -7,3 +7,4 @@ accountExist: See konto on juba olemas, logige otse sisse
 accountNotExist: Kontot pole olemas, palun registreeruge esmalt
 passwordError: Parooliviga, ununemise korral lähtestage
 mailUsed: Seda e-posti on juba kasutanud teised
+modifyMail: Muuda meili

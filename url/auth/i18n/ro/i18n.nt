@@ -7,3 +7,4 @@ accountExist: Acest cont există deja, conectați-vă direct
 accountNotExist: Contul nu există, vă rugăm mai întâi să vă înregistrați
 passwordError: Eroare de parolă, resetați dacă ați uitat
 mailUsed: Acest e-mail este deja folosit de alții
+modifyMail: Modificați e-mailul

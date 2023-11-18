@@ -7,3 +7,4 @@ accountExist: Bu Hesab Artıq Mövcuddur, Birbaşa Daxil Olun
 accountNotExist: Hesab Mövcud deyil, Zəhmət olmasa, Əvvəlcə Qeydiyyatdan Keçin
 passwordError: Parol Xətası, Unutmusunuzsa Sıfırlayın
 mailUsed: Bu E-poçt Artıq Başqaları tərəfindən İstifadə Edilir
+modifyMail: E-poçtu dəyişdirin

@@ -7,3 +7,4 @@ accountExist: Esta conta já existe, faça login diretamente
 accountNotExist: A conta não existe, inscreva-se primeiro
 passwordError: Erro de senha, redefina se esquecida
 mailUsed: Este e-mail já é usado por outras pessoas
+modifyMail: Modificar e-mail

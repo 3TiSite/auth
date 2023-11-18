@@ -10,14 +10,22 @@ use crate::{
 };
 
 pub async fn get(host_bin: impl AsRef<[u8]>, uid: u64) -> RedisResult<String> {
+  Ok(id_mail(host_bin, uid).await?.1)
+}
+
+pub async fn id_mail(host_bin: impl AsRef<[u8]>, uid: u64) -> RedisResult<(u64, String)> {
+  let mail_id;
   if let Some(mail_bin) = uid_mail_id::bin(host_bin, uid).await? {
-    let mail_id = bin_u64(mail_bin) as i64;
+    mail_id = bin_u64(mail_bin);
+    let mail_id_i64 = mail_id as i64;
     let mail: Option<String> = KV
-      .zrangebyscore(K::MAIL_ID, mail_id, mail_id, false, Some((0, 1)))
+      .zrangebyscore(K::MAIL_ID, mail_id_i64, mail_id_i64, false, Some((0, 1)))
       .await?;
     if let Some(mail) = mail {
-      return Ok(reverse_mail(&mail));
+      return Ok((mail_id, reverse_mail(&mail)));
     }
+  } else {
+    mail_id = 0;
   }
-  Ok("".to_owned())
+  Ok((mail_id, "".to_owned()))
 }

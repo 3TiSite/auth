@@ -7,3 +7,4 @@ accountExist: Dit account bestaat al, meld u direct aan
 accountNotExist: Account bestaat niet. Meld u eerst aan
 passwordError: Wachtwoordfout, reset indien vergeten
 mailUsed: Dit e-mailadres wordt al door anderen gebruikt
+modifyMail: E-mail wijzigen

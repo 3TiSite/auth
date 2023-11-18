@@ -7,3 +7,4 @@ accountExist: Denne kontoen eksisterer allerede, logg på direkte
 accountNotExist: Kontoen eksisterer ikke. Registrer deg først
 passwordError: Passordfeil, tilbakestill hvis glemt
 mailUsed: Denne e-posten er allerede brukt av andre
+modifyMail: Endre e-post

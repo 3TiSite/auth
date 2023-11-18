@@ -7,3 +7,4 @@ accountExist: Šis konts jau pastāv, pierakstieties tieši
 accountNotExist: Konts neeksistē, lūdzu, vispirms reģistrējieties
 passwordError: Paroles kļūda, atiestatiet, ja esat aizmirsis
 mailUsed: Šo e-pastu jau izmanto citi
+modifyMail: Mainīt e-pastu

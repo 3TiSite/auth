@@ -7,3 +7,4 @@ accountExist: חשבון זה כבר קיים, היכנס ישירות
 accountNotExist: חשבון לא קיים, נא להירשם תחילה
 passwordError: שגיאת סיסמה, אפס אם נשכח
 mailUsed: דוא&quot;ל זה כבר בשימוש על ידי אחרים
+modifyMail: שנה אימייל

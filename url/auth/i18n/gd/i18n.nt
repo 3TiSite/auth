@@ -7,3 +7,4 @@ accountExist: Tha an Cunntas seo ann mu thràth, Clàraich a-steach gu dìreach
 accountNotExist: Chan eil cunntas ann, feuch an clàraich thu an toiseach
 passwordError: Mearachd facal-faire, ath-shuidheachadh ma dhìochuimhnich thu
 mailUsed: Tha am post-d seo air a chleachdadh le feadhainn eile mu thràth
+modifyMail: Atharraich post-d

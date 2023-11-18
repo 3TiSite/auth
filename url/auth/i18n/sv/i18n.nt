@@ -7,3 +7,4 @@ accountExist: Detta konto finns redan, logga in direkt
 accountNotExist: Kontot existerar inte, vänligen registrera dig först
 passwordError: Lösenordsfel, återställ om glömt
 mailUsed: Denna e-post har redan använts av andra
+modifyMail: Ändra e-post

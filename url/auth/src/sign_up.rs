@@ -12,7 +12,7 @@ use crate::{
   api, db,
   db::code,
   i18n, lua, throw,
-  K::{self, MAIL_ID},
+  K::{self},
 };
 
 pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!() {
@@ -37,9 +37,7 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   let host = t3::origin_tld(&header)?;
   let p = KV.pipeline();
   db::id::host(&p, &host).await?;
-  p.fcall(lua::ZSET_ID, &[MAIL_ID], [db::id::reverse_mail(&account)])
-    .await?;
-
+  db::id::mail_new_if_not_exist(&p, &account).await?;
   let (host_id, mail_id): (Option<u64>, u64) = p.all().await?;
 
   let host_id = tp::host_is_bind(host_id)?;

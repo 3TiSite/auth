@@ -7,3 +7,4 @@ accountExist: Bu hisob allaqachon mavjud, toʻgʻridan-toʻgʻri kiring
 accountNotExist: Hisob mavjud emas, Iltimos, avval ro'yxatdan o'ting
 passwordError: Parol xatosi, unutilgan bo'lsa tiklash
 mailUsed: Bu elektron pochta allaqachon boshqalar tomonidan ishlatilgan
+modifyMail: Elektron pochtani o'zgartirish

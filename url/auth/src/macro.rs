@@ -17,6 +17,7 @@ macro_rules! client {
 
     if let Some(uid_bin) = uid_bin {
       let uid_bin = &uid_bin[..];
+      let uid = intbin::bin_u64(uid_bin);
       let p = KV.pipeline();
       p.hget(K::NAME, uid_bin).await?;
       p.hget(K::LANG, uid_bin).await?;

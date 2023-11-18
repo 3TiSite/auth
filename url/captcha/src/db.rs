@@ -1,5 +1,7 @@
-use conn::KV;
-use fred::{interfaces::KeysInterface, prelude::Expiration};
+use conn::{
+  fred::{interfaces::KeysInterface, prelude::Expiration},
+  KV,
+};
 use intbin::u64_bin;
 use rand::Rng;
 use t3::{HeaderMap, StatusCode};

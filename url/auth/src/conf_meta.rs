@@ -1,11 +1,8 @@
 use client::Client;
-use conn::{KV};
-use intbin::{u64_bin};
+use conn::KV;
+use intbin::u64_bin;
 
-use crate::{
-  api, db,
-  db::{uid_mail},
-};
+use crate::{api, db, db::uid_mail};
 
 pub async fn post(header: t3::HeaderMap, client: Client, json: String) -> t3::msg!() {
   let uid: u64 = sonic_rs::from_str(&json)?;

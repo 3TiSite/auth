@@ -7,3 +7,4 @@ accountExist: Ang Account na ito ay Umiiral na, Direktang Mag-sign In
 accountNotExist: Hindi Umiiral ang Account, Mangyaring Mag-signUp muna
 passwordError: Error sa Password, I-reset Kung Nakalimutan
 mailUsed: Ang Email na Ito ay Ginamit Na Ng Iba
+modifyMail: Baguhin ang Email

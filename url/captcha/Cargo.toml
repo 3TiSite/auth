@@ -21,11 +21,10 @@ trt = "0.1.14"
 vb = "0.0.7"
 conn = { path = "../../lib/conn" }
 intbin = "0.1.2"
-fred = "7.0.0"
 axum = "0.6.20"
-prost = "0.12.1"
+prost = "0.12.2"
 tracing = "0.1.40"
 
 [build-dependencies]
 anyhow = "1.0.75"
-prost-build = "0.12.1"
+prost-build = "0.12.2"

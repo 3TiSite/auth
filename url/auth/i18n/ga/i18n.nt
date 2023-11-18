@@ -7,3 +7,4 @@ accountExist: Tá an Cuntas seo ann Cheana, Sínigh Isteach Díreach
 accountNotExist: Níl an Cuntas ann, Cláraigh ar dtús
 passwordError: Earráid Pasfhocal, Athshocraigh Má Dearmadtar é
 mailUsed: An Ríomhphost Seo Úsáidte Ag Daoine Eile Cheana
+modifyMail: Athraigh Ríomhphost

@@ -7,3 +7,4 @@ accountExist: このアカウントはすでに存在します。直接ログイ
 accountNotExist: アカウントは存在しません。まず登録してください
 passwordError: パスワードが間違っています。忘れた場合はリセットできます。
 mailUsed: このメール アドレスはすでに別のアカウントで使用されています
+modifyMail: 電子メールを変更する

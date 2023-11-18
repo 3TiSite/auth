@@ -7,3 +7,4 @@ accountExist: Mae'r Cyfrif hwn yn Bodoli Eisoes, Mewngofnodwch yn Uniongyrchol
 accountNotExist: Cyfrif Ddim Yn Bod, Cofrestrwch yn Gyntaf
 passwordError: Gwall Cyfrinair, Ailosod Os Wedi'i Anghofio
 mailUsed: Mae'r E-bost hwn Eisoes Wedi'i Ddefnyddio Gan Eraill
+modifyMail: Addasu E-bost
