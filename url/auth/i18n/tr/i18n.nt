@@ -8,3 +8,4 @@ accountNotExist: Hesap Mevcut Değil, Lütfen Önce Kaydolun
 passwordError: Şifre Hatası, Unutulursa Sıfırla
 mailUsed: Bu E-posta Zaten Başkaları Tarafından Kullanılıyor
 modifyMail: E-postayı Değiştir
+banMail: Tek Kullanımlık E-posta Kaydını Devre Dışı Bırak

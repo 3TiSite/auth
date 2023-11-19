@@ -25,7 +25,7 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
           break;
         }
       }
-      throw!(header, now, CODE, INVALID);
+      throw!(header, now, CODE, INVALID)
     }
   }
 
@@ -35,7 +35,7 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
     &old_mail,
     new_code.trim().to_owned(),
   ) {
-    throw!(header, mail, CODE, INVALID);
+    throw!(header, mail, CODE, INVALID)
   }
 
   let new_mail_id = if let Some(id) = new_mail_id {

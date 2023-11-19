@@ -8,3 +8,4 @@ accountNotExist: Cyfrif Ddim Yn Bod, Cofrestrwch yn Gyntaf
 passwordError: Gwall Cyfrinair, Ailosod Os Wedi'i Anghofio
 mailUsed: Mae'r E-bost hwn Eisoes Wedi'i Ddefnyddio Gan Eraill
 modifyMail: Addasu E-bost
+banMail: Analluogi Cofrestru E-bost Tafladwy

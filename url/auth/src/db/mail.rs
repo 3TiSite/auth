@@ -40,11 +40,12 @@ pub async fn send_code(
   send_txt_htm(host, account, txt, htm).await
 }
 
-pub async fn email_vaild(header: &t3::HeaderMap, mail: &str) -> t3::Result<()> {
+pub async fn email_vaild(header: &t3::HeaderMap, mail: impl AsRef<str>) -> t3::Result<String> {
+  let mail = mail.as_ref();
   if !EmailAddress::is_valid(mail) {
-    throw!(header, account, MAIL, INVALID);
+    throw!(header, account, MAIL, INVALID)
   }
-  Ok(())
+  Ok(mail.to_owned())
 }
 
 pub async fn host_send_with_suffix(
@@ -55,8 +56,7 @@ pub async fn host_send_with_suffix(
   token: impl AsRef<str>,
   suffix: &str,
 ) -> t3::Result<()> {
-  let account = account.as_ref();
-  email_vaild(header, account).await?;
+  let account = email_vaild(header, account).await?;
   let lang = lang::header(header);
   let mut li = i18n::get_li(lang, &[i18n::VERIFY_MAIL, kind]).await?;
 
@@ -79,8 +79,7 @@ pub async fn host_send(
   account: impl AsRef<str>,
   token: impl AsRef<str>,
 ) -> t3::Result<()> {
-  let account = account.as_ref();
-  email_vaild(header, account).await?;
+  let account = email_vaild(header, account).await?;
   let lang = lang::header(header);
   let li = i18n::get_li(lang, &[i18n::VERIFY_MAIL, kind]).await?;
   send_code(kind, li, host, account, token).await?;

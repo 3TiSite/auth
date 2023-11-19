@@ -8,3 +8,4 @@ accountNotExist: Tài khoản không tồn tại, vui lòng đăng ký trước
 passwordError: Lỗi mật khẩu, đặt lại nếu quên
 mailUsed: Email này đã được người khác sử dụng
 modifyMail: Sửa đổi email
+banMail: Vô hiệu hóa đăng ký email dùng một lần

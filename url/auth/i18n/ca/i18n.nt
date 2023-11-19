@@ -8,3 +8,4 @@ accountNotExist: El compte no existeix, primer registreu-vos
 passwordError: Error de contrasenya, restabliment si s'oblida
 mailUsed: Aquest correu electrònic ja l'han utilitzat altres
 modifyMail: Modifica el correu electrònic
+banMail: Desactiva el registre de correu electrònic d'un sol ús

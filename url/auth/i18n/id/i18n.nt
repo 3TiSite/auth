@@ -8,3 +8,4 @@ accountNotExist: Akun Belum Ada, Silakan Daftar Terlebih Dahulu
 passwordError: Password Error, Reset Jika Lupa
 mailUsed: Email Ini Sudah Digunakan Oleh Orang Lain
 modifyMail: Ubah Email
+banMail: Nonaktifkan Pendaftaran Email Sekali Pakai

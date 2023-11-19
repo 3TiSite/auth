@@ -8,3 +8,4 @@ accountNotExist: Account non esistente, registrati prima
 passwordError: Errore password, reimposta se dimenticata
 mailUsed: Questa email è già utilizzata da altri
 modifyMail: Modifica e-mail
+banMail: Disabilita la registrazione via e-mail usa e getta

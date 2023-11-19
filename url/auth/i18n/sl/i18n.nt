@@ -8,3 +8,4 @@ accountNotExist: Račun ne obstaja, najprej se prijavite
 passwordError: Napaka gesla, ponastavite, če ste pozabili
 mailUsed: Ta e-poštni naslov že uporabljajo drugi
 modifyMail: Spremeni e-pošto
+banMail: Onemogoči prijavo po e-pošti za enkratno uporabo

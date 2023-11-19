@@ -8,3 +8,4 @@ accountNotExist: Kontoen eksisterer ikke. Registrer deg først
 passwordError: Passordfeil, tilbakestill hvis glemt
 mailUsed: Denne e-posten er allerede brukt av andre
 modifyMail: Endre e-post
+banMail: Deaktiver engangsregistrering for e-post

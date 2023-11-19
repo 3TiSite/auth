@@ -5,7 +5,7 @@ export RUST_LOG=debug,supervisor=warn,hyper=warn,rustls=warn,h2=warn,tower=warn,
 _init() {
   local pwd=$(pwd)
   local dir=$(readlink -f "$BASH_SOURCE")
-  cd ${dir%/*/*}/conf/
+  cd ${dir%/*/*/*/*}/conf/
   local i
   for i in $@; do
     set -o allexport

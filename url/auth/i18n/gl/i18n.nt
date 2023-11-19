@@ -8,3 +8,4 @@ accountNotExist: A conta non existe, primeiro rexístrate
 passwordError: Erro de contrasinal, restablecelo se se esquece
 mailUsed: Este correo electrónico xa o utilizaban outros
 modifyMail: Modificar correo electrónico
+banMail: Desactivar o rexistro de correo electrónico desbotable

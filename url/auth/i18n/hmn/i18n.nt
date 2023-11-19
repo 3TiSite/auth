@@ -8,3 +8,4 @@ accountNotExist: Account Tsis Muaj, Thov Sau Npe Ua Ntej
 passwordError: Password yuam kev, Rov pib dua yog tsis nco qab
 mailUsed: No Email Twb tau siv los ntawm lwm tus
 modifyMail: Hloov Email
+banMail: Disable Disposable Email Signup

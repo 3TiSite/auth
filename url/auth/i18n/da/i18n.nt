@@ -8,3 +8,4 @@ accountNotExist: Konto eksisterer ikke. Tilmeld dig først
 passwordError: Adgangskodefejl, nulstil hvis glemt
 mailUsed: Denne e-mail er allerede brugt af andre
 modifyMail: Rediger e-mail
+banMail: Deaktiver engangs-e-mailtilmelding

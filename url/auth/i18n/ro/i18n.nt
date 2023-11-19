@@ -8,3 +8,4 @@ accountNotExist: Contul nu există, vă rugăm mai întâi să vă înregistraț
 passwordError: Eroare de parolă, resetați dacă ați uitat
 mailUsed: Acest e-mail este deja folosit de alții
 modifyMail: Modificați e-mailul
+banMail: Dezactivați înregistrarea prin e-mail de unică folosință

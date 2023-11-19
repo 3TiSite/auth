@@ -8,3 +8,4 @@ accountNotExist: Hindi Umiiral ang Account, Mangyaring Mag-signUp muna
 passwordError: Error sa Password, I-reset Kung Nakalimutan
 mailUsed: Ang Email na Ito ay Ginamit Na Ng Iba
 modifyMail: Baguhin ang Email
+banMail: Huwag paganahin ang Disposable Email Signup

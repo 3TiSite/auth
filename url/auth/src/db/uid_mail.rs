@@ -4,10 +4,7 @@ use conn::{
 };
 use intbin::bin_u64;
 
-use crate::{
-  db::{id::reverse_mail, uid_mail_id},
-  K,
-};
+use crate::{db::uid_mail_id, K};
 
 pub async fn get(host_bin: impl AsRef<[u8]>, uid: u64) -> RedisResult<String> {
   Ok(id_mail(host_bin, uid).await?.1)
@@ -22,7 +19,7 @@ pub async fn id_mail(host_bin: impl AsRef<[u8]>, uid: u64) -> RedisResult<(u64, 
       .zrangebyscore(K::MAIL_ID, mail_id_i64, mail_id_i64, false, Some((0, 1)))
       .await?;
     if let Some(mail) = mail {
-      return Ok((mail_id, reverse_mail(&mail)));
+      return Ok((mail_id, xmail::reverse(&mail)));
     }
   } else {
     mail_id = 0;

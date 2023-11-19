@@ -8,3 +8,4 @@ accountNotExist: Reikningur er ekki til, vinsamlegast skráðu þig fyrst
 passwordError: Lykilorðsvilla, endurstilla ef gleymist
 mailUsed: Þessi tölvupóstur er þegar notaður af öðrum
 modifyMail: Breyta tölvupósti
+banMail: Slökktu á einnota tölvupóstskráningu

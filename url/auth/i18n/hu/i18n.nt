@@ -8,3 +8,4 @@ accountNotExist: Fiók nem létezik, kérjük, először regisztráljon
 passwordError: Jelszóhiba, visszaállítás, ha elfelejtette
 mailUsed: Ezt az e-mailt már mások is használják
 modifyMail: E-mail módosítása
+banMail: Az eldobható e-mail regisztráció letiltása

@@ -8,3 +8,4 @@ accountNotExist: חשבון לא קיים, נא להירשם תחילה
 passwordError: שגיאת סיסמה, אפס אם נשכח
 mailUsed: דוא&quot;ל זה כבר בשימוש על ידי אחרים
 modifyMail: שנה אימייל
+banMail: השבת את הרשמה לאימייל חד פעמי

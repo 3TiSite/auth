@@ -8,3 +8,4 @@ accountNotExist: Konto nie istnieje. Najpierw się zarejestruj
 passwordError: Błąd hasła, zresetuj, jeśli zapomniałeś
 mailUsed: Ten adres e-mail jest już używany przez innych
 modifyMail: Zmodyfikuj adres e-mail
+banMail: Wyłącz jednorazową rejestrację e-mailową

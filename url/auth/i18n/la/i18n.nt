@@ -8,3 +8,4 @@ accountNotExist: Ratio non est, quaeso SignUp Primum
 passwordError: Error Password, Reset si oblitus
 mailUsed: Haec Email iam ab aliis
 modifyMail: Mutare Email
+banMail: Inactivare PROMPTU Email Signup

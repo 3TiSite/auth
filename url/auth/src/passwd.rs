@@ -5,7 +5,6 @@ use conn::{
 };
 use intbin::{bin_u64, u64_bin};
 use t3::HeaderMap;
-use xstr::lowtrim;
 
 use crate::{
   api, db,
@@ -15,9 +14,9 @@ use crate::{
 
 pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!() {
   let (account, password, code): (String, String, String) = sonic_rs::from_str(&json)?;
-  let account = lowtrim(account);
+  let account = xmail::norm(account);
   if !code::verify(i18n::RESET_PASSWORD, &account, &password, code) {
-    throw!(header, code, CODE, INVALID);
+    throw!(header, code, CODE, INVALID)
   }
   let host = &t3::origin_tld(&header)?;
   let (host_bin, mail_id) = host_bin_mail_id(host, &account).await?;

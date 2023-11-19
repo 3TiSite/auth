@@ -8,3 +8,4 @@ accountNotExist: Le compte n'existe pas, veuillez d'abord vous inscrire
 passwordError: Erreur de mot de passe, réinitialiser en cas d'oubli
 mailUsed: Cet e-mail est déjà utilisé par d'autres
 modifyMail: Modifier l'e-mail
+banMail: Désactiver l'inscription par e-mail jetable

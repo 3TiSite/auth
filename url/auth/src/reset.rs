@@ -1,5 +1,4 @@
 use t3::HeaderMap;
-use xstr::lowtrim;
 
 use crate::{
   db,
@@ -11,7 +10,7 @@ pub async fn post(header: HeaderMap, json: String) -> t3::msg!() {
   captcha::verify(&header).await?;
   let (account, password): (String, String) = sonic_rs::from_str(&json)?;
 
-  let account = lowtrim(account);
+  let account = xmail::norm(account);
   let host = &t3::origin_tld(&header)?;
   let (host_bin, mail_id) = host_bin_mail_id(host, &account).await?;
 

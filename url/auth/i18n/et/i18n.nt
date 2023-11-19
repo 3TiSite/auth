@@ -8,3 +8,4 @@ accountNotExist: Kontot pole olemas, palun registreeruge esmalt
 passwordError: Parooliviga, ununemise korral lähtestage
 mailUsed: Seda e-posti on juba kasutanud teised
 modifyMail: Muuda meili
+banMail: Keela ühekordselt kasutatava meili registreerimine

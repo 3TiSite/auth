@@ -6,11 +6,11 @@ use conn::{
 use intbin::{bin_u64, u64_bin};
 use t3::HeaderMap;
 use tokio::task::spawn_blocking;
-use xstr::lowtrim;
+use xmail::norm_tld;
 
 use crate::{
   api, db,
-  db::code,
+  db::{bantld, code},
   i18n, lua, throw,
   K::{self},
 };
@@ -30,9 +30,13 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
     .into();
   };
 
-  let account = lowtrim(account);
+  let (account, tld) = norm_tld(account);
+  if bantld::is(tld).await? {
+    throw!(header, code, BAN_MAIL)
+  }
+
   if !code::verify(i18n::SIGN_UP, &account, &password, verify_code) {
-    throw!(header, code, CODE, INVALID);
+    throw!(header, code, CODE, INVALID)
   }
   let host = t3::origin_tld(&header)?;
   let p = KV.pipeline();
@@ -67,7 +71,7 @@ pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!()
   if r.len() == 2 {
     let hash = r.pop().unwrap();
     if !spawn_blocking(move || passwd::verify(password.as_bytes(), &hash)).await? {
-      throw!(header, account, ACCOUNT_EXIST);
+      throw!(header, code, ACCOUNT_EXIST)
     }
   }
 

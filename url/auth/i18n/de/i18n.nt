@@ -8,3 +8,4 @@ accountNotExist: Konto existiert nicht, bitte melden Sie sich zuerst an
 passwordError: Passwortfehler, bei Vergessen zurücksetzen
 mailUsed: Diese E-Mail wurde bereits von anderen verwendet
 modifyMail: E-Mail ändern
+banMail: Deaktivieren Sie die Einweg-E-Mail-Anmeldung

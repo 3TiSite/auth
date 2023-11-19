@@ -1,11 +1,11 @@
 use client::Client;
 use intbin::bin_u64;
 use t3::{ok, HeaderMap};
-use xstr::lowtrim;
+use xmail::norm_tld;
 
 use crate::{
   api,
-  db::{host_bin_mail_id, host_mail_uid_bin, mail, uid_mail},
+  db::{bantld, host_bin_mail_id, host_mail_uid_bin, mail, uid_mail},
   i18n, throw,
 };
 
@@ -16,7 +16,11 @@ pub async fn host_old_mail_new_mail(
   new_mail: String,
 ) -> t3::Result<(Box<[u8]>, String, u64, String, Option<u64>, String)> {
   client.uid_logined(uid).await?;
-  let new_mail = lowtrim(new_mail);
+  let (new_mail, tld) = norm_tld(new_mail);
+  if bantld::is(tld).await? {
+    throw!(header, mail, BAN_MAIL)
+  }
+
   let host = t3::origin_tld(header)?;
   let (host_bin, new_mail_id) = host_bin_mail_id(&host, &new_mail).await?;
 

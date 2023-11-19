@@ -8,3 +8,4 @@ accountNotExist: Tiliä ei ole, rekisteröidy ensin
 passwordError: Salasanavirhe, nollaa jos unohdat
 mailUsed: Tämä sähköposti on jo muiden käytössä
 modifyMail: Muokkaa sähköpostia
+banMail: Poista kertakäyttöisen sähköpostin rekisteröinti käytöstä

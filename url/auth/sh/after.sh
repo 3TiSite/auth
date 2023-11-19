@@ -5,6 +5,7 @@ cd $DIR
 set -ex
 ./init.coffee
 
-source ../../../../conf/env/srv_host.sh
+source ../../../../../../conf/env/srv_host.sh
 
 ./hostNew.coffee $SRV_HOST
+../cron/banTld.coffee

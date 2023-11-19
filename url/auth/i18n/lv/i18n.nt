@@ -8,3 +8,4 @@ accountNotExist: Konts neeksistē, lūdzu, vispirms reģistrējieties
 passwordError: Paroles kļūda, atiestatiet, ja esat aizmirsis
 mailUsed: Šo e-pastu jau izmanto citi
 modifyMail: Mainīt e-pastu
+banMail: Atspējot vienreizējās lietošanas e-pasta reģistrēšanos

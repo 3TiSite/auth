@@ -8,3 +8,4 @@ accountNotExist: Účet neexistuje, nejprve se prosím zaregistrujte
 passwordError: Chyba hesla, v případě zapomenutí resetujte
 mailUsed: Tento e-mail již používají ostatní
 modifyMail: Upravit e-mail
+banMail: Zakázat registraci e-mailu na jedno použití

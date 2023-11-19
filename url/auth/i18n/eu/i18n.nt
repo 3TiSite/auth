@@ -8,3 +8,4 @@ accountNotExist: Kontua ez dago, mesedez erregistratu lehenik
 passwordError: Pasahitz errorea, berrezarri ahazten bazaizu
 mailUsed: Email hau beste batzuek erabiltzen dute dagoeneko
 modifyMail: Aldatu posta elektronikoa
+banMail: Desgaitu erabil daitekeen posta elektronikoaren erregistroa
