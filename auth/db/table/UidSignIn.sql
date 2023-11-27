@@ -1,0 +1,9 @@
+CREATE TABLE `authUidSignIn` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `clientId` BIGINT UNSIGNED NOT NULL,
+  `uid` BIGINT UNSIGNED NOT NULL,
+  `ip` varbinary(16) NOT NULL,
+  `authUaId` BIGINT UNSIGNED NOT NULL,
+  `ts` BIGINT UNSIGNED DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+);

@@ -7,10 +7,10 @@ authLi: →UserStateLi
 authMe: →User
 authName: uid:u64;name:String→()
 authNewMail: 🚧 uid:u64;new_mail:String→Mail
-authPasswd: account:String;password:String;code:String→User
+authPasswd: fingerprint:String;account:String;password:String;code:String→User
 authReset: 🚧 account:String;password:String→()
 authRm: id:u64→User
 authSet: id:u64→User
 authSetMail: uid:u64;new_mail:String;old_code:Option<String>;new_code:String→()
-authSignUp: account:String;password:String;verify_code:String;name:String→Uid
-auth: 🚧 action:u8;account:String;password:String→User
+authSignUp: fingerprint:String;account:String;password:String;verify_code:String;name:String→Uid
+auth: 🚧 fingerprint:String;action:u8;account:String;password:String→User

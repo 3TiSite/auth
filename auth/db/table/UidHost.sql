@@ -1,0 +1,5 @@
+CREATE TABLE `authUidHost` (
+  `id` BIGINT UNSIGNED NOT NULL,
+  `authHostId` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+);

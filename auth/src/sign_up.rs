@@ -21,8 +21,13 @@ pub async fn post(
   client: Client,
   json: String,
 ) -> t3::msg!() {
-  let (account, password, verify_code, name): (String, String, String, String) =
-    sonic_rs::from_str(&json)?;
+  let (fingerprint, account, password, verify_code, name): (
+    String,
+    String,
+    String,
+    String,
+    String,
+  ) = sonic_rs::from_str(&json)?;
 
   let mut name = name.trim().to_owned();
   if name.is_empty() {
@@ -94,7 +99,7 @@ pub async fn post(
   p.hset(K::NAME, (uid_bin, name)).await?;
   db::lang::set(&p, uid_bin, lang).await?;
   client
-    .sign_in(&p, uid_bin, t3::ip_bin(&header, &addr))
+    .sign_in(&p, uid_bin, &header, &addr, fingerprint)
     .await?;
   p.all().await?;
 

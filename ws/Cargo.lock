@@ -401,7 +401,7 @@ version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3cd91cf61412820176e137621345ee43b3f4423e589e7ae4e50d601d93e35ef8"
 dependencies = [
- "time",
+ "time 0.3.30",
  "version_check",
 ]
 
@@ -579,7 +579,7 @@ dependencies = [
  "lazy_static",
  "mysql_async",
  "tokio",
- "trt",
+ "trt 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -809,9 +809,9 @@ dependencies = [
  "ctor",
  "paste",
  "r",
+ "time 0.1.0",
  "tokio",
- "trt",
- "util",
+ "trt 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "vb",
 ]
 
@@ -826,6 +826,15 @@ name = "glob"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
+
+[[package]]
+name = "gxhash"
+version = "2.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "36e5414014ecefbff3cace919aeee3499d37e40337c3a5561f6a053d73e2afd1"
+dependencies = [
+ "rand",
+]
 
 [[package]]
 name = "hashbrown"
@@ -973,6 +982,13 @@ name = "intbin"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "533afc46b274b8de665d16124919b94764db45494743d0a8256603471a4980af"
+
+[[package]]
+name = "ip"
+version = "0.1.0"
+dependencies = [
+ "http",
+]
 
 [[package]]
 name = "itertools"
@@ -1835,7 +1851,7 @@ version = "0.1.0"
 dependencies = [
  "ctor",
  "r",
- "trt",
+ "trt 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "util",
 ]
 
@@ -2009,6 +2025,13 @@ checksum = "3fdd6f064ccff2d6567adcb3873ca630700f00b5ad3f060c25b5dcfd9a4ce152"
 dependencies = [
  "cfg-if",
  "once_cell",
+]
+
+[[package]]
+name = "time"
+version = "0.1.0"
+dependencies = [
+ "coarsetime",
 ]
 
 [[package]]
@@ -2252,6 +2275,16 @@ dependencies = [
 [[package]]
 name = "trt"
 version = "0.1.15"
+dependencies = [
+ "anyhow",
+ "lazy_static",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "trt"
+version = "0.1.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "224706c126525cfa5575c79feb08762cc03f341830c3ff7ca79b3719bdc7aab7"
 dependencies = [
@@ -2302,6 +2335,16 @@ name = "typenum"
 version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
+
+[[package]]
+name = "ua"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "http",
+ "vb",
+ "woothee",
+]
 
 [[package]]
 name = "ub64"
@@ -2369,14 +2412,17 @@ dependencies = [
  "db",
  "gid",
  "intbin 0.1.2",
+ "ip",
  "kfn",
  "r",
  "sk",
+ "time 0.1.0",
  "tracing",
+ "trt 0.1.15",
+ "ua",
  "ub64",
- "util",
  "vb",
- "xxhash-rust",
+ "xhash",
 ]
 
 [[package]]
@@ -2391,11 +2437,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "bs58",
- "coarsetime",
  "ordered-varint",
  "rand",
  "vb",
- "xxhash-rust",
+ "xhash",
  "z85",
 ]
 
@@ -2615,6 +2660,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "woothee"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "896174c6a4779d4d7d4523dd27aef7d46609eda2497e370f6c998325c6bf6971"
+dependencies = [
+ "lazy_static",
+ "regex",
+]
+
+[[package]]
 name = "ws"
 version = "0.1.0"
 dependencies = [
@@ -2628,6 +2683,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "xhash"
+version = "0.1.0"
+dependencies = [
+ "gxhash",
+]
+
+[[package]]
 name = "xkv"
 version = "0.1.18"
 dependencies = [
@@ -2637,7 +2699,7 @@ dependencies = [
  "fred",
  "lazy_static",
  "paste",
- "trt",
+ "trt 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2655,12 +2717,6 @@ dependencies = [
  "psl",
  "xstr",
 ]
-
-[[package]]
-name = "xxhash-rust"
-version = "0.8.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9828b178da53440fa9c766a3d2f73f7cf5d0ac1fe3980c1e5018d899fd19e07b"
 
 [[package]]
 name = "z85"

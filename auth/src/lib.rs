@@ -4,6 +4,8 @@ urlmod!();
 mod _mod;
 mod db;
 mod r#macro;
+use std::net::SocketAddr;
+
 use crate::db::sign_in::{sign_in, SignIn};
 #[allow(non_snake_case)]
 pub mod K;
@@ -20,25 +22,55 @@ use crate::db::bantld;
 pub const SIGN_UP: u8 = 0; // 注册
 pub const SIGN_IN: u8 = 1; // 登录
 
-pub async fn sign_in_lang_name(client: &Client, id: u64, ip: Box<[u8]>) -> Result<(u8, String)> {
+pub async fn sign_in_lang_name(
+  client: &Client,
+  id: u64,
+  header: &HeaderMap,
+  addr: &SocketAddr,
+  fingerprint: String,
+) -> Result<(u8, String)> {
   let client_uid = client.uid().await?;
   let id_bin = &u64_bin(id)[..];
   let p = KV.pipeline();
   p.hget(K::LANG, id_bin).await?;
-  let (lang, name) = if if let Some(uid) = client_uid {
-    id != uid
-  } else {
-    true
-  } {
-    p.hget(K::NAME, id_bin).await?;
-    client.sign_in(&p, id_bin, ip).await?;
-    let li: (_, _, ()) = p.all().await?;
-    (li.0, li.1)
-  } else {
-    p.hget(K::NAME, id_bin).await?;
-    p.all().await?
-  };
+  let (lang, name) =
+    if if let Some(uid) = client_uid {
+      id != uid
+    } else {
+      true
+    } {
+      p.hget(K::NAME, id_bin).await?;
+      client
+        .sign_in(&p, id_bin, header, addr, fingerprint)
+        .await?;
+      let li: (_, _, ()) = p.all().await?;
+      (li.0, li.1)
+    } else {
+      p.hget(K::NAME, id_bin).await?;
+      p.all().await?
+    };
   Ok((db::lang::get(lang), name))
+}
+
+pub struct Fingerprint {}
+
+impl From<String> for Fingerprint {
+  fn from(s: String) -> Self {
+    for (pos, i) in s.split("<").enumerate() {
+      match pos {
+        0 => {
+          dbg!(i);
+        }
+        1 => {
+          dbg!(i);
+        }
+        _ => {
+          dbg!(i);
+        }
+      }
+    }
+    Self {}
+  }
 }
 
 pub async fn post(
@@ -48,15 +80,15 @@ pub async fn post(
   json: String,
 ) -> t3::msg!() {
   captcha::verify(&header).await?;
-  let (action, account, password): (u8, String, String) = sonic_rs::from_str(&json)?;
+  let (fingerprint, action, account, password): (String, u8, String, String) =
+    sonic_rs::from_str(&json)?;
 
   let account = xmail::norm(account);
   let host = &t3::origin_tld(&header)?;
 
   match sign_in(host, &account, &password).await? {
     SignIn::Ok(id) => {
-      let ip = t3::ip_bin(&header, &addr);
-      let (lang, name) = sign_in_lang_name(&client, id, ip).await?;
+      let (lang, name) = sign_in_lang_name(&client, id, &header, &addr, fingerprint).await?;
       ok!(api::User {
         id,
         name,

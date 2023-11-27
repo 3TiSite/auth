@@ -1,0 +1,8 @@
+CREATE TABLE `authPasswd` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `authHostId` BIGINT UNSIGNED NOT NULL,
+  `uid` BIGINT UNSIGNED NOT NULL,
+  `passwd` binary(16) NOT NULL,
+  `ts` BIGINT UNSIGNED NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+);

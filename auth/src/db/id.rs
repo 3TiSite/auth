@@ -16,9 +16,9 @@ pub async fn host<T: FromRedis, C: SortedSetsInterface + Sync>(
 }
 
 pub async fn mail(key: &str) -> db::Result<Option<u64>> {
-  Ok(db::q1!("SELECT mailId(?)", key))
+  Ok(db::q1!("SELECT authMailId(?)", key))
 }
 
 pub async fn mail_new(key: &str) -> db::Result<u64> {
-  Ok(db::q1!("SELECT mailNew(?)", key))
+  Ok(db::q1!("SELECT authMailNew(?)", key))
 }

@@ -18,7 +18,8 @@ pub async fn post(
   client: Client,
   json: String,
 ) -> t3::msg!() {
-  let (account, password, code): (String, String, String) = sonic_rs::from_str(&json)?;
+  let (fingerprint, account, password, code): (String, String, String, String) =
+    sonic_rs::from_str(&json)?;
   let account = xmail::norm(account);
   if !code::verify(i18n::RESET_PASSWORD, &account, &password, code) {
     throw!(header, code, CODE, INVALID)
@@ -40,8 +41,8 @@ pub async fn post(
       let p = KV.pipeline();
       p.hget(K::NAME, uid).await?;
       p.hget(K::LANG, uid).await?;
-      client.sign_in(&p, uid, t3::ip_bin(&header, &addr)).await?;
-      let (name, lang, ..): (String, _, (), ()) = p.all().await?;
+      client.sign_in(&p, uid, &header, &addr, fingerprint).await?;
+      let (name, lang, ..): (String, _, ()) = p.all().await?;
 
       return Ok(api::User {
         id: bin_u64(uid),
