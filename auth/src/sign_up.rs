@@ -1,17 +1,13 @@
 use client::Client;
-use intbin::{bin_u64, u64_bin};
-use r::{
-  fred::interfaces::{FunctionInterface, HashesInterface},
-  KV,
-};
+use intbin::u64_bin;
+use r::{fred::interfaces::HashesInterface, KV};
 use t3::{ConnectInfo, HeaderMap};
-use tokio::{join, task::spawn_blocking};
 use xmail::norm_tld;
 
 use crate::{
-  api, db,
-  db::{bantld, code},
-  i18n, lua, throw,
+  api,
+  db::{bantld, code, host::id_by_header, lang, name, passwd},
+  i18n, throw,
   K::{self},
 };
 
@@ -21,24 +17,18 @@ pub async fn post(
   client: Client,
   json: String,
 ) -> t3::msg!() {
-  let (fingerprint, account, password, verify_code, name): (
-    String,
-    String,
-    String,
-    String,
-    String,
-  ) = sonic_rs::from_str(&json)?;
+  let (fingerprint, account, passwd, verify_code, name): (String, String, String, String, String) =
+    sonic_rs::from_str(&json)?;
 
   let mut name = name.trim().to_owned();
   if name.is_empty() {
-    name =
-      if let Some(p) = account.find('@') {
-        account[..p].into()
-      } else {
-        account.clone()
-      }
-      .trim()
-      .into();
+    name = if let Some(p) = account.find('@') {
+      account[..p].into()
+    } else {
+      account.clone()
+    }
+    .trim()
+    .into();
   };
 
   let (account, tld) = norm_tld(account);
@@ -46,62 +36,34 @@ pub async fn post(
     throw!(header, code, BAN_MAIL)
   }
 
-  if !code::verify(i18n::SIGN_UP, &account, &password, verify_code) {
+  if !code::verify(i18n::SIGN_UP, &account, &passwd, verify_code) {
     throw!(header, code, CODE, INVALID)
   }
-  let host = t3::origin_tld(&header)?;
-  let (mail_id, host_id) = join!(
-    db::id::mail_new(&account),
-    db::id::host::<Option<u64>, _>(&**KV, &host)
-  );
+  let host_id = id_by_header(&header).await?;
 
-  let mail_id = mail_id?;
-  let host_id = host_id?;
+  let uid: u64 = m::authUidMailNew!(host_id, &account);
+  let uid_bin = &u64_bin(uid)[..];
 
-  let host_id = tp::host_is_bind(host_id)?;
-  let mail_id_bin = &u64_bin(mail_id);
-  let host_id_bin = &u64_bin(host_id)[..];
-
-  let mut r: Vec<Vec<u8>> = KV
-    .fcall(
-      lua::ACCOUNT_NEW_UID_PASSWD,
-      &[
-        &K::host_mail_uid(host_id_bin),
-        K::UID,
-        &K::mail_uid(mail_id_bin),
-        K::UID_ACCOUNT,
-        K::UID_HOST,
-        K::UID_PASSWD,
-      ],
-      [
-        mail_id_bin,
-        account.as_bytes(),
-        host_id_bin,
-        &passwd::hash(password.as_bytes())[..],
-      ],
-    )
-    .await?;
-
-  if r.len() == 2 {
-    let hash = r.pop().unwrap();
-    if !spawn_blocking(move || passwd::verify(password.as_bytes(), &hash)).await? {
+  if let Some(hash) = passwd::exist(host_id, uid).await? {
+    if !passwd::verify_with_hash(host_id, uid, passwd, &hash) {
       throw!(header, code, ACCOUNT_EXIST)
     }
+  } else {
+    trt::spawn!(passwd::set(host_id, uid, passwd));
   }
 
-  let uid_bin = &r[0][..];
-  let id = bin_u64(uid_bin);
-  let name = db::name::truncate(name);
+  let name = name::truncate(name);
   let name = name.as_bytes();
-  let lang = lang::header_bin(&header);
+  let lang = ::lang::header_bin(&header);
 
   let p = KV.pipeline();
+  p.hset(K::UID_ACCOUNT, (uid_bin, account)).await?;
   p.hset(K::NAME, (uid_bin, name)).await?;
-  db::lang::set(&p, uid_bin, lang).await?;
+  lang::set(&p, uid_bin, lang).await?;
   client
     .sign_in(&p, uid_bin, &header, &addr, fingerprint)
     .await?;
   p.all().await?;
 
-  Ok(api::Uid { id })
+  Ok(api::Uid { id: uid })
 }

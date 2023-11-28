@@ -1,8 +1,7 @@
-use std::{borrow::Cow, net::SocketAddr, ops::ControlFlow};
+use std::{borrow::Cow, ops::ControlFlow};
 
 use axum::{
   extract::{
-    connect_info::ConnectInfo,
     ws::{CloseFrame, Message, WebSocket, WebSocketUpgrade},
     Path,
   },
@@ -26,6 +25,7 @@ pub async fn get(
 
 /// Actual websocket statemachine (one will be spawned per connection)
 async fn handle_socket(mut socket: WebSocket, uid: u64) {
+  dbg!(uid);
   //send a ping (unsupported by some browsers) just to kick things off and get a response
   println!("handle_socket");
   if socket.send(Message::Ping(vec![1, 2, 3])).await.is_ok() {

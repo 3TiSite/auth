@@ -25,7 +25,7 @@ main = ()=>
     ]
   )
   await dbq(
-    "INSERT IGNORE INTO authHost (id,val,ts) VALUES (?,?,UNIX_TIMESTAMP())"
+    "INSERT IGNORE INTO host (id,val,ts) VALUES (?,?,UNIX_TIMESTAMP())"
     id
     host
   )

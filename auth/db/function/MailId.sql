@@ -1,10 +1,10 @@
 CREATE FUNCTION `authMailId`(mail VARBINARY(255)) RETURNS BIGINT UNSIGNED
 BEGIN
   DECLARE h BIGINT UNSIGNED;
-  CALL authSplitMail(mail,@u,@h);
+  CALL splitMail(mail,@u,@h);
   SELECT id INTO h FROM authMailHost WHERE val=@h;
   IF h IS NULL THEN
     RETURN NULL;
 END IF;
-RETURN (SELECT id FROM authMail WHERE usr=@u AND authHostId=h);
+RETURN (SELECT id FROM authMail WHERE usr=@u AND hostId=h);
 END ;;

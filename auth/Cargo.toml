@@ -21,7 +21,7 @@ sk = { path = "../../../rust/lib/sk" }
 sonic-rs = "0.2.4"
 t3 = { path = "../../../rust/lib/t3" }
 util = { path = "../../../rust/lib/util" }
-db = { path = "../../../rust/lib/db" }
+m = { path = "../../../rust/lib/m" }
 tokio = { version = "1.34.0", features = [
   "macros",
   "rt",
@@ -42,6 +42,8 @@ ub64 = { version = "0.0.10", features = ["u64"] }
 base64 = "0.21.5"
 xmail = "0.1.4"
 xtld = "0.1.1"
+vb = "0.0.7"
+trt = "0.1.15"
 
 [build-dependencies]
 anyhow = "1.0.75"
