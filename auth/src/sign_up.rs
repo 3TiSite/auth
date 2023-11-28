@@ -44,12 +44,12 @@ pub async fn post(
   let uid: u64 = m::authUidMailNew!(host_id, &account);
   let uid_bin = &u64_bin(uid)[..];
 
-  if let Some(hash) = passwd::exist(host_id, uid).await? {
-    if !passwd::verify_with_hash(host_id, uid, passwd, &hash) {
+  if let Some(hash) = passwd::exist(uid).await? {
+    if !passwd::verify_with_hash(uid, passwd, hash) {
       throw!(header, code, ACCOUNT_EXIST)
     }
   } else {
-    trt::spawn!(passwd::set(host_id, uid, passwd));
+    trt::spawn!(passwd::set(uid, passwd));
   }
 
   let name = name::truncate(name);

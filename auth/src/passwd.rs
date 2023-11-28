@@ -24,7 +24,7 @@ pub async fn post(
   let host_id = host::id_by_header(&header).await?;
 
   if let Some(uid) = m::authHostIdMailUid!(host_id, account) {
-    trt::spawn(passwd::set(host_id, uid, passwd));
+    trt::spawn(passwd::set(uid, passwd));
     let uid_bin = &u64_bin(uid)[..];
     let p = KV.pipeline();
     p.hget(K::NAME, uid_bin).await?;

@@ -11,7 +11,7 @@ pub async fn post(header: HeaderMap, json: String) -> t3::msg!() {
   // let (host_bin, _, old_mail_id, old_mail, new_mail_id, new_mail) =
   //   host_old_mail_new_mail(&client, &header, uid, new_mail).await?;
 
-  let old_mail: String = m::authIdMail!(uid);
+  let old_mail: String = m::authUidMail!(uid);
   if !old_mail.is_empty() {
     #[allow(clippy::never_loop)]
     loop {

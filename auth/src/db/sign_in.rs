@@ -9,7 +9,7 @@ pub enum SignIn {
 pub async fn sign_in(host: &str, account: &str, passwd: impl AsRef<str>) -> t3::Result<SignIn> {
   let host_id = host::id(host).await?;
   if let Some(uid) = m::authHostIdMailUid!(host_id, account) {
-    if passwd::verify(host_id, uid, passwd).await? {
+    if passwd::verify(uid, passwd).await? {
       return Ok(SignIn::Ok(uid));
     }
     return Ok(SignIn::PasswdError);
