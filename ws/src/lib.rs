@@ -1,14 +1,14 @@
 use std::{borrow::Cow, ops::ControlFlow};
 
-use axum::{
-  extract::{
+use client::Client;
+use futures_util::{SinkExt, StreamExt};
+use t3::{
+  axum::extract::{
     ws::{CloseFrame, Message, WebSocket, WebSocketUpgrade},
     Path,
   },
-  response::IntoResponse,
+  IntoResponse,
 };
-use client::Client;
-use futures_util::{SinkExt, StreamExt};
 
 pub async fn get(
   ws: WebSocketUpgrade,
@@ -73,34 +73,33 @@ async fn handle_socket(mut socket: WebSocket, uid: u64) {
   let (mut sender, mut receiver) = socket.split();
 
   // Spawn a task that will push several messages to the client (does not matter what client does)
-  let mut send_task =
-    tokio::spawn(async move {
-      let n_msg = 20;
-      for i in 0..n_msg {
-        // In case of any websocket error, we exit.
-        if sender
-          .send(Message::Text(format!("Server message {i} ...")))
-          .await
-          .is_err()
-        {
-          return i;
-        }
-
-        tokio::time::sleep(std::time::Duration::from_millis(300)).await;
-      }
-
-      println!("Sending close to ...");
-      if let Err(e) = sender
-        .send(Message::Close(Some(CloseFrame {
-          code: axum::extract::ws::close_code::NORMAL,
-          reason: Cow::from("Goodbye"),
-        })))
+  let mut send_task = tokio::spawn(async move {
+    let n_msg = 20;
+    for i in 0..n_msg {
+      // In case of any websocket error, we exit.
+      if sender
+        .send(Message::Text(format!("Server message {i} ...")))
         .await
+        .is_err()
       {
-        println!("Could not send Close due to {e}, probably it is ok?");
+        return i;
       }
-      n_msg
-    });
+
+      tokio::time::sleep(std::time::Duration::from_millis(300)).await;
+    }
+
+    println!("Sending close to ...");
+    if let Err(e) = sender
+      .send(Message::Close(Some(CloseFrame {
+        code: axum::extract::ws::close_code::NORMAL,
+        reason: Cow::from("Goodbye"),
+      })))
+      .await
+    {
+      println!("Could not send Close due to {e}, probably it is ok?");
+    }
+    n_msg
+  });
 
   // This second task will receive messages from client and print them on server console
   let mut recv_task = tokio::spawn(async move {
