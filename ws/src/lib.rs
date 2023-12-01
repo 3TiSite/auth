@@ -1,9 +1,10 @@
 use std::{borrow::Cow, ops::ControlFlow};
 
 use anyhow::Result;
+use axum::extract::ws::close_code::{AWAY, NORMAL};
 use client::Client;
 use dashmap::DashMap;
-use futures::stream::SplitSink;
+use futures::{future::join_all, stream::SplitSink};
 use futures_util::{SinkExt, StreamExt};
 use lazy_static::lazy_static;
 use r::{fred::interfaces::HashesInterface, KV};
@@ -17,28 +18,33 @@ use t3::{
 };
 use xhash::HashMap;
 
+pub type Sender = SplitSink<WebSocket, Message>;
+
 lazy_static! {
-  pub static ref UID_CLIENT_ID_WS: DashMap<u64, HashMap<u64, SplitSink<WebSocket, Message>>> =
-    DashMap::new();
+  pub static ref UID_CLIENT_ID_WS: DashMap<u64, HashMap<u64, Sender>> = DashMap::new();
 }
 
 pub static MSG_USER: &str = concat!(radix_str!(0, 36), "[");
 
 pub async fn to_other(client_id: u64, uid: u64, msg: Message) {
   if let Some(mut li) = UID_CLIENT_ID_WS.get_mut(&uid) {
-    for (id, i) in li.iter_mut() {
+    let mut vec = Vec::with_capacity(li.len() - 1);
+    for (id, ws) in li.iter_mut() {
       if *id != client_id {
-        let _ = i.send(msg.clone()).await;
+        vec.push(ws.send(msg.clone()));
       }
     }
+    join_all(vec).await;
   }
 }
 
 pub async fn to_all(uid: u64, msg: Message) {
   if let Some(mut li) = UID_CLIENT_ID_WS.get_mut(&uid) {
-    for (_, i) in li.iter_mut() {
-      let _ = i.send(msg.clone()).await;
+    let mut vec = Vec::with_capacity(li.len());
+    for (_, ws) in li.iter_mut() {
+      vec.push(ws.send(msg.clone()));
     }
+    join_all(vec).await;
   }
 }
 
@@ -90,7 +96,6 @@ async fn open(socket: WebSocket, client_id: u64, uid: u64, ver: u64) {
     Ok::<_, anyhow::Error>(())
   });
 
-  // 启动一个向客户端推送消息的任务
   // let mut send_task = tokio::spawn(async move {
   //   let n_msg = 20;
   //   for i in 0..n_msg {
@@ -166,28 +171,28 @@ async fn open(socket: WebSocket, client_id: u64, uid: u64, ver: u64) {
 
 pub fn process_message(msg: Message) -> ControlFlow<(), ()> {
   match msg {
-    Message::Text(t) => {
-      println!(">>>  发送的字符串:{t:?}");
-    }
-    Message::Binary(d) => {
-      println!(">>>  发送了{}字节:{:?}", d.len(), d);
-    }
+    // Message::Text(t) => {
+    //   println!(">>>  发送的字符串:{t:?}");
+    // }
+    // Message::Binary(d) => {
+    //   println!(">>>  发送了{}字节:{:?}", d.len(), d);
+    // }
+    // Message::Pong(_v) => {
+    //   //println!(">>>  发送的pong:{v:?}");
+    // }
+    // // axum的websocket库会根据规范自动回复ping, 如果你需要ping的内容可以在这里看到。
+    // Message::Ping(_v) => {
+    //   // println!(">>>  发送的ping:{v:?}");
+    // }
     Message::Close(c) => {
       if let Some(cf) = c {
-        println!(">>>  发送关闭,代码{} 原因 {}", cf.code, cf.reason);
-      } else {
-        println!(">>>  以某种方式发送了没有CloseFrame的关闭消息");
+        if ![NORMAL, AWAY].contains(&cf.code) {
+          tracing::info!("websocket close {} {}", cf.code, cf.reason);
+        }
       }
       return ControlFlow::Break(());
     }
-
-    Message::Pong(_v) => {
-      //println!(">>>  发送的pong:{v:?}");
-    }
-    // axum的websocket库会根据规范自动回复ping, 如果你需要ping的内容可以在这里看到。
-    Message::Ping(_v) => {
-      // println!(">>>  发送的ping:{v:?}");
-    }
+    _ => {}
   }
   ControlFlow::Continue(())
 }
