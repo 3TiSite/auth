@@ -10,8 +10,9 @@ message Uid
 message User
 {
   uint64 id = 1;
-  string name = 2;
+  uint64 ver = 2;
   uint32 lang = 3;
+  string name = 4;
 }
 
 message UserState

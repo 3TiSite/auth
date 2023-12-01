@@ -1,7 +1,13 @@
 use std::{borrow::Cow, ops::ControlFlow};
 
+use anyhow::Result;
 use client::Client;
+use dashmap::DashMap;
+use futures::stream::SplitSink;
 use futures_util::{SinkExt, StreamExt};
+use lazy_static::lazy_static;
+use r::{fred::interfaces::HashesInterface, KV};
+use radix_str::radix_str;
 use t3::{
   axum::extract::{
     ws::{CloseFrame, Message, WebSocket, WebSocketUpgrade},
@@ -9,162 +15,178 @@ use t3::{
   },
   IntoResponse,
 };
+use xhash::HashMap;
+
+lazy_static! {
+  pub static ref UID_CLIENT_ID_WS: DashMap<u64, HashMap<u64, SplitSink<WebSocket, Message>>> =
+    DashMap::new();
+}
+
+pub static MSG_USER: &str = concat!(radix_str!(0, 36), "[");
+
+pub async fn to_other(client_id: u64, uid: u64, msg: Message) {
+  if let Some(mut li) = UID_CLIENT_ID_WS.get_mut(&uid) {
+    for (id, i) in li.iter_mut() {
+      if *id != client_id {
+        let _ = i.send(msg.clone()).await;
+      }
+    }
+  }
+}
+
+pub async fn to_all(uid: u64, msg: Message) {
+  if let Some(mut li) = UID_CLIENT_ID_WS.get_mut(&uid) {
+    for (_, i) in li.iter_mut() {
+      let _ = i.send(msg.clone()).await;
+    }
+  }
+}
 
 pub async fn get(
   ws: WebSocketUpgrade,
   client: Client,
-  Path(uid): Path<String>,
-) -> impl IntoResponse {
+  Path((uid, ver)): Path<(String, String)>,
+) -> t3::Result<impl IntoResponse> {
   let uid = u64::from_str_radix(&uid, 36).unwrap_or(0);
-  if let Err(err) = client.uid_logined(uid).await {
-    return err.into_response();
-  }
-  // TODO , https://github.com/snapview/tungstenite-rs/pull/328 等这个 close 添加压缩
-  ws.on_upgrade(move |socket| handle_socket(socket, uid))
+  client.uid_logined(uid).await?;
+  let ver = u64::from_str_radix(&ver, 36).unwrap_or(0);
+  Ok(ws.on_upgrade(move |socket| open(socket, client.id, uid, ver)))
 }
 
-/// Actual websocket statemachine (one will be spawned per connection)
-async fn handle_socket(mut socket: WebSocket, uid: u64) {
-  dbg!(uid);
-  //send a ping (unsupported by some browsers) just to kick things off and get a response
-  println!("handle_socket");
-  if socket.send(Message::Ping(vec![1, 2, 3])).await.is_ok() {
-    println!("Pinged ...");
-  } else {
-    println!("Could not send ping !");
-    // no Error here since the only thing we can do is to close the connection.
-    // If we can not send messages, there is no way to salvage the statemachine anyway.
-    return;
-  }
-
-  // receive single message from a client (we can either receive or send with socket).
-  // this will likely be the Pong for our Ping or a hello message from client.
-  // waiting for message from a client will block this task, but will not block other client's
-  // connections.
-  if let Some(msg) = socket.recv().await {
-    if let Ok(msg) = msg {
-      if process_message(msg).is_break() {
-        return;
-      }
-    } else {
-      println!("client abruptly disconnected");
-      return;
-    }
-  }
-
-  // Since each client gets individual statemachine, we can pause handling
-  // when necessary to wait for some external event (in this case illustrated by sleeping).
-  // Waiting for this client to finish getting its greetings does not prevent other clients from
-  // connecting to server and receiving their greetings.
-  for i in 1..5 {
-    if socket
-      .send(Message::Text(format!("Hi {i} times!")))
-      .await
-      .is_err()
-    {
-      println!("client abruptly disconnected");
-      return;
-    }
-    tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-  }
-
-  // By splitting socket we can send and receive at the same time. In this example we will send
-  // unsolicited messages to client based on some sort of server's internal event (i.e .timer).
-  let (mut sender, mut receiver) = socket.split();
-
-  // Spawn a task that will push several messages to the client (does not matter what client does)
-  let mut send_task = tokio::spawn(async move {
-    let n_msg = 20;
-    for i in 0..n_msg {
-      // In case of any websocket error, we exit.
-      if sender
-        .send(Message::Text(format!("Server message {i} ...")))
-        .await
-        .is_err()
-      {
-        return i;
-      }
-
-      tokio::time::sleep(std::time::Duration::from_millis(300)).await;
-    }
-
-    println!("Sending close to ...");
-    if let Err(e) = sender
-      .send(Message::Close(Some(CloseFrame {
-        code: axum::extract::ws::close_code::NORMAL,
-        reason: Cow::from("Goodbye"),
-      })))
-      .await
-    {
-      println!("Could not send Close due to {e}, probably it is ok?");
-    }
-    n_msg
-  });
-
-  // This second task will receive messages from client and print them on server console
-  let mut recv_task = tokio::spawn(async move {
-    let mut cnt = 0;
-    while let Some(Ok(msg)) = receiver.next().await {
-      cnt += 1;
-      // print message and break if instructed to do so
-      if process_message(msg).is_break() {
-        break;
-      }
-    }
-    cnt
-  });
-
-  // If any one of the tasks exit, abort the other.
-  tokio::select! {
-      rv_a = (&mut send_task) => {
-          match rv_a {
-              Ok(a) => println!("{a} messages sent to "),
-              Err(a) => println!("Error sending messages {a:?}")
-          }
-          recv_task.abort();
-      },
-      rv_b = (&mut recv_task) => {
-          match rv_b {
-              Ok(b) => println!("Received {b} messages"),
-              Err(b) => println!("Error receiving messages {b:?}")
-          }
-          send_task.abort();
-      }
-  }
-
-  // returning from the handler closes the websocket connection
-  println!("Websocket context destroyed");
+pub async fn msg_user_by_uid_bin(uid_bin: impl AsRef<[u8]>) -> Result<Message> {
+  let json = user::by_id_bin(uid_bin.as_ref()).await?.to_json();
+  Ok(Message::Text(MSG_USER.to_owned() + &json))
 }
 
-/// helper to print contents of messages to stdout. Has special treatment for Close.
-fn process_message(msg: Message) -> ControlFlow<(), ()> {
+async fn open(socket: WebSocket, client_id: u64, uid: u64, ver: u64) {
+  let (sender, mut receiver) = socket.split();
+
+  tokio::spawn(async move {
+    {
+      UID_CLIENT_ID_WS
+        .entry(uid)
+        .or_insert_with(|| Default::default())
+        .insert(client_id, sender);
+    }
+    let uid_bin = &intbin::u64_bin(uid)[..];
+    let now_ver: Option<u64> = KV.hget(user::K::VER, uid_bin).await?;
+    if now_ver.unwrap_or(0) != ver {
+      let user = msg_user_by_uid_bin(uid_bin).await?;
+
+      if let Some(mut client_id_sender) = UID_CLIENT_ID_WS.get_mut(&uid) {
+        if let Some(sender) = client_id_sender.get_mut(&client_id) {
+          if let Err(e) = sender.send(user).await {
+            tracing::error!("{uid} {client_id} {e}");
+            let _ = sender
+              .send(Message::Close(Some(CloseFrame {
+                code: axum::extract::ws::close_code::NORMAL,
+                reason: Cow::from(""),
+              })))
+              .await;
+          }
+        }
+      }
+    }
+    Ok::<_, anyhow::Error>(())
+  });
+
+  // 启动一个向客户端推送消息的任务
+  // let mut send_task = tokio::spawn(async move {
+  //   let n_msg = 20;
+  //   for i in 0..n_msg {
+  //     // 任何错误直接退出
+  //     if sender
+  //       .send(Message::Text(format!("服务器消息{i}...")))
+  //       .await
+  //       .is_err()
+  //     {
+  //       return i;
+  //     }
+  //
+  //     tokio::time::sleep(std::time::Duration::from_millis(1000)).await;
+  //   }
+  //
+  //   println!("正在发送关闭...");
+  //   if let Err(e) = sender
+  //     .send(Message::Close(Some(CloseFrame {
+  //       code: axum::extract::ws::close_code::NORMAL,
+  //       reason: Cow::from("再见"),
+  //     })))
+  //     .await
+  //   {
+  //     println!("无法发送关闭:{e},也许没关系?");
+  //   }
+  //   n_msg
+  // });
+
+  loop {
+    if let Some(msg) = receiver.next().await {
+      match msg {
+        Ok(msg) => {
+          if process_message(msg).is_break() {
+            break;
+          }
+        }
+        Err(msg) => {
+          tracing::error!("{msg}");
+          break;
+        }
+      };
+    }
+  }
+
+  let removed = {
+    UID_CLIENT_ID_WS
+      .remove_if(&uid, |_, m| m.len() == 1)
+      .is_some()
+  };
+  if !removed {
+    if let Some(mut m) = UID_CLIENT_ID_WS.get_mut(&uid) {
+      m.remove(&client_id);
+    }
+  }
+
+  // tokio::select! {
+  //     rv_a = (&mut send_task) => {
+  //         match rv_a {
+  //             Ok(a) => println!("向客户端发送了{}条消息",a),
+  //             Err(a) => println!("发送消息时出错:{:?}",a)
+  //         }
+  //         recv_task.abort();
+  //     },
+  //     rv_b = (&mut recv_task) => {
+  //         match rv_b {
+  //             Ok(b) => println!("接收到{}条消息",b),
+  //             Err(b) => println!("接收消息时出错:{:?}",b)
+  //         }
+  //         send_task.abort();
+  //     }
+  // }
+}
+
+pub fn process_message(msg: Message) -> ControlFlow<(), ()> {
   match msg {
     Message::Text(t) => {
-      println!(">>>  sent str: {t:?}");
+      println!(">>>  发送的字符串:{t:?}");
     }
     Message::Binary(d) => {
-      println!(">>> sent {} bytes: {:?}", d.len(), d);
+      println!(">>>  发送了{}字节:{:?}", d.len(), d);
     }
     Message::Close(c) => {
       if let Some(cf) = c {
-        println!(
-          ">>> sent close with code {} and reason `{}`",
-          cf.code, cf.reason
-        );
+        println!(">>>  发送关闭,代码{} 原因 {}", cf.code, cf.reason);
       } else {
-        println!(">>>  somehow sent close message without CloseFrame");
+        println!(">>>  以某种方式发送了没有CloseFrame的关闭消息");
       }
       return ControlFlow::Break(());
     }
 
-    Message::Pong(v) => {
-      println!(">>>  sent pong with {v:?}");
+    Message::Pong(_v) => {
+      //println!(">>>  发送的pong:{v:?}");
     }
-    // You should never need to manually handle Message::Ping, as axum's websocket library
-    // will do so for you automagically by replying with Pong and copying the v according to
-    // spec. But if you need the contents of the pings you can see them here.
-    Message::Ping(v) => {
-      println!(">>>  sent ping with {v:?}");
+    // axum的websocket库会根据规范自动回复ping, 如果你需要ping的内容可以在这里看到。
+    Message::Ping(_v) => {
+      // println!(">>>  发送的ping:{v:?}");
     }
   }
   ControlFlow::Continue(())

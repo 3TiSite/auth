@@ -1,10 +1,9 @@
 #[macro_export]
 macro_rules! client {
   ($client:ident, $json:ident, $action:ident) => {{
-    use r::{fred::interfaces::HashesInterface, KV};
     use intbin::u64_bin;
+    use r::KV;
     use t3::ok;
-    use $crate::{api, K};
     let uid: u64 = sonic_rs::from_str(&$json)?;
     let uid_bin = &u64_bin(uid)[..];
 
@@ -16,20 +15,8 @@ macro_rules! client {
     client.set_uid_bin(uid_bin.clone());
 
     if let Some(uid_bin) = uid_bin {
-      let uid_bin = &uid_bin[..];
-      let uid = intbin::bin_u64(uid_bin);
-      let p = KV.pipeline();
-      p.hget(K::NAME, uid_bin).await?;
-      p.hget(K::LANG, uid_bin).await?;
-
-      let (name, lang) = p.all().await?;
-      let lang = $crate::db::lang::get(lang);
-
-      return ok!(api::User {
-        id: uid,
-        name,
-        lang: lang as _
-      });
+      let user: $crate::api::User = $crate::db::api_user::by_id_bin(uid_bin).await?;
+      return ok!(user);
     };
 
     return ok!(());

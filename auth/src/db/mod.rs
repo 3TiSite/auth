@@ -1,3 +1,4 @@
+pub mod api_user;
 pub mod bantld;
 pub mod code;
 pub mod host;
@@ -5,4 +6,5 @@ pub mod lang;
 pub mod mail;
 pub mod name;
 pub mod passwd;
-pub mod sign_in;
+mod sign_in;
+pub use sign_in::{sign_in, SignIn};

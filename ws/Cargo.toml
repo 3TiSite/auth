@@ -21,3 +21,12 @@ futures-util = { version = "0.3", default-features = false, features = [
   "std"
 ] }
 tracing = "0.1.40"
+lazy_static = "1.4.0"
+dashmap = { version = "5.5.3", features = ["inline", "rayon"] }
+futures = "0.3.29"
+intbin = "0.1.2"
+user = { path = "../../../rust/lib/user" }
+r = { path = "../../../rust/lib/r" }
+anyhow = "1.0.75"
+radix_str = "0.1.1"
+xhash = "0.1.0"

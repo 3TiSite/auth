@@ -17,7 +17,7 @@ pub async fn post(client: Client) -> t3::msg!() {
 
     let p = KV.pipeline();
     p.hmget(K::UID_ACCOUNT, uid_bin_li.clone()).await?;
-    p.hmget(K::NAME, uid_bin_li.clone()).await?;
+    p.hmget(user::K::NAME, uid_bin_li.clone()).await?;
     let (account_li, name_li): (Vec<String>, Vec<String>) = p.all().await?;
 
     for (p, id) in uid_bin_li.into_iter().map(intbin::bin_u64).enumerate() {

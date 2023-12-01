@@ -4,52 +4,51 @@ urlmod!();
 mod _mod;
 mod db;
 mod r#macro;
-use std::net::SocketAddr;
+use anyhow::Result;
 
-use crate::db::sign_in::{sign_in, SignIn};
+use crate::db::{bantld, SignIn};
+
 #[allow(non_snake_case)]
 pub mod K;
 mod i18n;
 mod lua;
-use anyhow::Result;
 use client::Client;
 use intbin::u64_bin;
-use r::{fred::interfaces::HashesInterface, KV};
 use t3::{ok, ConnectInfo, HeaderMap};
-
-use crate::db::bantld;
 
 pub const SIGN_UP: u8 = 0; // 注册
 pub const SIGN_IN: u8 = 1; // 登录
 
-pub async fn sign_in_lang_name(
+pub async fn sign_in(
   client: &Client,
   id: u64,
   header: &HeaderMap,
-  addr: &SocketAddr,
-  fingerprint: String,
-) -> Result<(u8, String)> {
+  addr: &std::net::SocketAddr,
+  fingerprint: &str,
+) -> Result<api::User> {
   let client_uid = client.uid().await?;
   let id_bin = &u64_bin(id)[..];
-  let p = KV.pipeline();
-  p.hget(K::LANG, id_bin).await?;
-  let (lang, name) =
-    if if let Some(uid) = client_uid {
-      id != uid
-    } else {
-      true
-    } {
-      p.hget(K::NAME, id_bin).await?;
-      client
-        .sign_in(&p, id_bin, header, addr, fingerprint)
-        .await?;
-      let li: (_, _, ()) = p.all().await?;
-      (li.0, li.1)
-    } else {
-      p.hget(K::NAME, id_bin).await?;
-      p.all().await?
-    };
-  Ok((db::lang::get(lang), name))
+  let p = user::pipeline(id_bin).await?;
+  let (ver, lang, name) = if if let Some(uid) = client_uid {
+    id != uid
+  } else {
+    true
+  } {
+    client
+      .sign_in(&p, id_bin, header, addr, fingerprint)
+      .await?;
+    let li: (Option<_>, _, _, ()) = p.all().await?;
+    (li.0, li.1, li.2)
+  } else {
+    p.all().await?
+  };
+  let lang = user::lang::get(lang) as _;
+  Ok(api::User {
+    id,
+    ver: ver.unwrap_or(0),
+    lang,
+    name,
+  })
 }
 
 pub struct Fingerprint {}
@@ -86,14 +85,10 @@ pub async fn post(
   let account = xmail::norm(account);
   let host = &t3::origin_tld(&header)?;
 
-  match sign_in(host, &account, &password).await? {
+  match db::sign_in(host, &account, &password).await? {
     SignIn::Ok(id) => {
-      let (lang, name) = sign_in_lang_name(&client, id, &header, &addr, fingerprint).await?;
-      ok!(api::User {
-        id,
-        name,
-        lang: lang as _
-      })
+      let user: api::User = sign_in(&client, id, &header, &addr, &fingerprint).await?;
+      return ok!(user);
     }
     SignIn::PasswdError => {
       if action == SIGN_UP {

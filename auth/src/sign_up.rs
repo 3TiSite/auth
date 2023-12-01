@@ -53,17 +53,17 @@ pub async fn post(
   }
 
   let name = name::truncate(name);
-  let name = name.as_bytes();
   let lang = ::lang::header_bin(&header);
 
   let p = KV.pipeline();
   p.hset(K::UID_ACCOUNT, (uid_bin, account)).await?;
-  p.hset(K::NAME, (uid_bin, name)).await?;
+  p.hset(user::K::NAME, (uid_bin, name.as_bytes())).await?;
   lang::set(&p, uid_bin, lang).await?;
   client
     .sign_in(&p, uid_bin, &header, &addr, fingerprint)
     .await?;
   p.all().await?;
+  trt::spawn!(m::authNameLog(uid, name));
 
   Ok(api::Uid { id: uid })
 }

@@ -1,12 +1,11 @@
 use client::Client;
 use intbin::u64_bin;
-use r::{fred::interfaces::HashesInterface, KV};
 use t3::{ConnectInfo, HeaderMap};
 
 use crate::{
-  api, db,
+  api,
   db::{code, host, passwd},
-  i18n, throw, K,
+  i18n, throw,
 };
 
 pub async fn post(
@@ -26,18 +25,17 @@ pub async fn post(
   if let Some(uid) = m::authHostIdMailUid!(host_id, account) {
     trt::spawn(passwd::set(uid, passwd));
     let uid_bin = &u64_bin(uid)[..];
-    let p = KV.pipeline();
-    p.hget(K::NAME, uid_bin).await?;
-    p.hget(K::LANG, uid_bin).await?;
+    let p = user::pipeline(uid_bin).await?;
     client
       .sign_in(&p, uid_bin, &header, &addr, fingerprint)
       .await?;
-    let (name, lang, ..): (String, _, ()) = p.all().await?;
-
+    let (ver, lang, name, ..): (Option<u64>, _, _, ()) = p.all().await?;
+    let lang = user::lang::get(lang) as _;
     return Ok(api::User {
       id: uid,
       name,
-      lang: db::lang::get(lang) as _,
+      lang,
+      ver: ver.unwrap_or(0),
     });
   }
   throw!(header, account, ACCOUNT_NOT_EXIST)
