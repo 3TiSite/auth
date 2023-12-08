@@ -2,7 +2,7 @@
 
 > @3-/kv:KV
   @3-/reverse
-  @3-/dbq
+  @3-/dbq > $e
 
 fcall = (func, keys, vals)=>
   keys.unshift keys.length
@@ -24,7 +24,7 @@ main = ()=>
       rhost
     ]
   )
-  await dbq(
+  await $e(
     "INSERT IGNORE INTO host (id,val,ts) VALUES (?,?,UNIX_TIMESTAMP())"
     id
     host

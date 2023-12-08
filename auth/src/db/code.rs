@@ -20,7 +20,7 @@ pub fn verify(
   code: String,
 ) -> bool {
   let code = code.trim();
-  let hour = time::hours();
+  let hour = sts::hour();
   let c = gen(kind, &account, &password, hour);
   let mut verifyed = c == code;
   if !verifyed {

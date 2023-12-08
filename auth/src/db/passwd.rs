@@ -14,7 +14,7 @@ impl Salt {
 
 pub async fn set(uid: u64, passwd: impl AsRef<str>) -> Result<()> {
   let passwd = passwd.as_ref().as_bytes();
-  let ts = time::sec();
+  let ts = sts::sec();
   let salt = Salt { ts, uid };
   let hash = passwd::hash(&salt.as_bytes(), passwd);
   m::authPasswdSet!(uid, hash, ts);

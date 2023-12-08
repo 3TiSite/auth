@@ -23,6 +23,9 @@ dependencies:
   '@3-/mdt':
     specifier: ^0.0.3
     version: 0.0.3
+  '@3-/msgpack':
+    specifier: ^0.1.2
+    version: 0.1.2
   '@3-/pool':
     specifier: ^0.0.3
     version: 0.0.3
@@ -41,8 +44,8 @@ dependencies:
 
 devDependencies:
   '@3-/dbq':
-    specifier: ^0.1.1
-    version: 0.1.1
+    specifier: ^0.1.3
+    version: 0.1.3
   '@3-/req':
     specifier: ^0.0.1
     version: 0.0.1
@@ -121,9 +124,10 @@ packages:
     resolution: {integrity: sha512-wz04vXM6vBI2pJx6BNCJrRowWRvssP37tqwBL+QmJjnOA83BtVNTG7K+vHrtDDyRHsClfEKtr1fux0niMmzrgg==}
     dev: false
 
-  /@3-/dbq@0.1.1:
-    resolution: {integrity: sha512-rV3Ce1E4M1MeLfzZkEQDgi+Sl1Km1tuC2vug5BvcCNMCmvHH1eoyzkmPDlDqwy/F5FvDhzSsFEy636fNGzjXBw==}
+  /@3-/dbq@0.1.3:
+    resolution: {integrity: sha512-fNEJJtpVAvcabyKaii4h6fnkCSxPIyYD3R5fnTT+fVqhGofDMonYJbM2YsLMaZICoZXmwV6mpG/rBnOk4MNdyA==}
     dependencies:
+      '@3-/is_dev': 0.1.1
       mariadb: 3.2.2
     dev: true
 
@@ -187,6 +191,10 @@ packages:
       '@3-/write': 0.0.1
       '@3-/xxhash3': 0.0.2
     dev: false
+
+  /@3-/is_dev@0.1.1:
+    resolution: {integrity: sha512-8fwTDQsIZy9XlZcc69sT9J3JM2hjMymEZrJ4reQ+MgQJWmKduBA75Ywuy3/Y3ExmIMpO8l6fwzAJafi/Ym0afg==}
+    dev: true
 
   /@3-/j2f@0.0.1:
     resolution: {integrity: sha512-wtL0NCrvfJVgI/o207KZnNA3m8DKa7PPb3yA1qIweaWEljO4v+kPMeeafM5AB8Y8m/+1LfhfbH8N1paDS9UYqA==}
@@ -260,6 +268,12 @@ packages:
     resolution: {integrity: sha512-k/Tixg3lkN4bwGnJAckdA5rpBLwmn8x9zR2XQNAN55kX7H+aNyGe3pI9WS3Vkc9olFdZbInlzXYjtKol7eETwg==}
     dependencies:
       msgpackr: 1.9.9
+    dev: false
+
+  /@3-/msgpack@0.1.2:
+    resolution: {integrity: sha512-2ExwI9JuEnXGg+jxT/Oo5wbVfOB1rt1P5lrePWDauTAHznatmLxEEyMsQMMRw2nwW/kH9411J+65DfeDzhardg==}
+    dependencies:
+      msgpackr: 1.10.0
     dev: false
 
   /@3-/nt@0.0.2:
@@ -1215,6 +1229,12 @@ packages:
       '@msgpackr-extract/msgpackr-extract-linux-x64': 3.0.2
       '@msgpackr-extract/msgpackr-extract-win32-x64': 3.0.2
     optional: true
+
+  /msgpackr@1.10.0:
+    resolution: {integrity: sha512-rVQ5YAQDoZKZLX+h8tNq7FiHrPJoeGHViz3U4wIcykhAEpwF/nH2Vbk8dQxmpX5JavkI8C7pt4bnkJ02ZmRoUw==}
+    optionalDependencies:
+      msgpackr-extract: 3.0.2
+    dev: false
 
   /msgpackr@1.9.9:
     resolution: {integrity: sha512-sbn6mioS2w0lq1O6PpGtsv6Gy8roWM+o3o4Sqjd6DudrL/nOugY+KyJUimoWzHnf9OkO0T6broHFnYE/R05t9A==}

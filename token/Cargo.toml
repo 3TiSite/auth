@@ -1,0 +1,23 @@
+[package]
+name = "token"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+t3 = { path = "../../../rust/lib/t3" }
+client = { path = "../../../rust/lib/client" }
+m = { path = "../../../rust/lib/m" }
+r = { path = "../../../rust/lib/r" }
+prost = "0.12.3"
+rand = "0.8.5"
+vb = "0.0.7"
+ub64 = "0.0.10"
+intbin = "0.1.2"
+sonic-rs = "0.2.5"
+anyhow = "1.0.75"
+sts = "0.1.4"
+
+[build-dependencies]
+anyhow = "1.0.75"
+genv = "0.1.5"
+prost-build = "0.12.3"

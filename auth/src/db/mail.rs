@@ -27,7 +27,7 @@ pub async fn send_code(
   token: impl AsRef<str>,
 ) -> Result<()> {
   let account = account.as_ref();
-  let code = code::gen(kind, account, &token, time::hours());
+  let code = code::gen(kind, account, &token, sts::hour());
   let mail = li[0].replace("${action}", &li[1]);
 
   let txt = mail.replace(CODE, &code);

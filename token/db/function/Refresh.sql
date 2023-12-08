@@ -1,0 +1,7 @@
+CREATE FUNCTION `tokenRefresh`(id BIGINT UNSIGNED,uid BIGINT UNSIGNED,sk BIGINT UNSIGNED,day BIGINT UNSIGNED) RETURNS TINYINT
+BEGIN
+    DECLARE r TINYINT UNSIGNED;
+    UPDATE token SET token.sk=sk,token.day=day WHERE token.id=id AND token.uid=uid;
+    SET r = ROW_COUNT();
+    RETURN r > 0;
+END ;;

@@ -2,6 +2,8 @@
 
 > @3-/req/reqJson.js
   @3-/reverse
+  @3-/msgpack/pack.js
+  @3-/msgpack/unpack.js
   @3-/write
   @3-/kv:KV
   ./conf > PWD
@@ -10,19 +12,20 @@
   punycode
 
 PROXY='https://mirror.ghproxy.com/'
-TS = 'banTldTs'
 DAY = 86400
 WEEK = DAY * 7
-
-
+KEY = 'banTld'
+UPDATE = KEY+':update'
+FAKEFILTER = KEY+':fakefilter'
 
 < main = =>
-  ts = await KV.get TS
-  if ts # and false
-    ts = parseInt(ts,36)
-    diff = WEEK - ((new Date/1000) - ts)
+  update = await KV.get UPDATE
+  now = Math.round new Date()/1000
+  if update
+    update = parseInt update,36
+    diff = WEEK - (now - update)
     if diff > 0
-      console.log 'banTld will update after', Math.round(diff*1e3/DAY)/1e3,'days'
+      console.log KEY+' next update after '+Math.round(1000*diff/DAY)/1000+' days'
       return
 
   url = PROXY+'https://raw.githubusercontent.com/7c/fakefilter/main/json/data.json'
@@ -40,11 +43,34 @@ WEEK = DAY * 7
 
   li = [...li]
   li.sort()
-  p = KV.pipeline()
-  p.sadd 'banTld', ...li
-  p.set TS, (parseInt(new Date()/1000)).toString(36)
-  p.exec()
 
+  p = KV.pipeline()
+
+  toadd = []
+  fakefilter = await KV.getBuffer(FAKEFILTER)
+  if fakefilter # 删除过期的，不直接删除KEY，是防止有将来可以手工添加屏蔽域名
+    fakefilter = new Set unpack(fakefilter)
+    for i from li
+      if not fakefilter.delete i
+        toadd.push i
+
+    {size} = fakefilter
+    if fakefilter.size
+      p.srem KEY,...fakefilter
+      console.log 'remove', size
+  else
+    toadd = li
+
+  {length} = toadd
+
+  if length
+    p.sadd KEY, ...toadd
+    console.log 'add', length
+
+  p.set FAKEFILTER, pack(li)
+  p.set UPDATE,now.toString 36
+  p.exec()
+  return
 
 if process.argv[1] == decodeURI(new URL(import.meta.url).pathname)
   await main()
