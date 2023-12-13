@@ -15,7 +15,7 @@ pub async fn send_txt_htm(
   let txt = txt.as_ref();
   let title = format!("[{host}] {}", &txt[0..txt.find('\n').unwrap()]);
   let htm = htm.as_ref();
-  smtp::send(host, account, title, txt, htm);
+  xsmtp::send(host, account, title, txt, htm);
   Ok(())
 }
 

@@ -1,13 +1,14 @@
 use intbin::u64_bin;
+use jarg::{jarg, json};
 use r::{fred::interfaces::HashesInterface, KV};
 use t3::{ok, HeaderMap};
 
 use crate::{db::code, i18n, throw, K};
 
-pub async fn post(header: HeaderMap, json: String) -> t3::msg!() {
-  let (uid, new_mail, old_code, new_code): (u64, String, Option<String>, String) =
-    sonic_rs::from_str(&json)?;
-
+pub async fn post(
+  header: HeaderMap,
+  jarg!(uid, new_mail, old_code, new_code): json!(u64, String, Option<String>, String),
+) -> t3::msg!() {
   // let (host_bin, _, old_mail_id, old_mail, new_mail_id, new_mail) =
   //   host_old_mail_new_mail(&client, &header, uid, new_mail).await?;
 

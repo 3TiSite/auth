@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 See kood aegub ühe tunni pärast.
 

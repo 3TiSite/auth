@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Þessi kóði rennur út eftir eina klukkustund.
 

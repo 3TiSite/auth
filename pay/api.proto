@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package api;
+
+message Month
+{
+  uint32 cash = 1;
+  uint32 bill = 2;
+}
+
+message Bill
+{
+  uint64 cash = 1;
+  repeated Month credit = 2;
+}

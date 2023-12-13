@@ -1,5 +1,5 @@
-codi ${action}: ${code}
+codi ${action} : ${code}
 
 Aquest codi caducarà en una hora.
 
-Si no heu sol·licitat ${action}, simplement ignoreu aquest correu electrònic.
+Si no heu sol·licitat ${action} , ignoreu aquest correu electrònic.

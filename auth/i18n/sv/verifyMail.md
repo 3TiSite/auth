@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Denna kod upphör att gälla om en timme.
 

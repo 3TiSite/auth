@@ -4,7 +4,7 @@ mail: Imèl
 invalid: Envalid
 code: Kòd Verifikasyon
 accountExist: Kont sa a deja egziste, konekte dirèkteman
-accountNotExist: Kont pa egziste, tanpri Enskri Premye
+accountNotExist: Kont pa egziste, tanpri enskri anvan
 passwordError: Erè Modpas, Reyajiste Si Ou Bliye
 mailUsed: Imèl sa a deja itilize pa lòt moun
 modifyMail: Modifye Imèl

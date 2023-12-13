@@ -1,4 +1,4 @@
-Koda ${action}: ${code}
+Koda ${action} : ${code}
 
 Ev kod dê di saetekê de biqede.
 

@@ -13,9 +13,9 @@ rand = "0.8.5"
 vb = "0.0.7"
 ub64 = "0.0.10"
 intbin = "0.1.2"
-sonic-rs = "0.2.5"
 anyhow = "1.0.75"
 sts = "0.1.4"
+jarg = "0.1.6"
 
 [build-dependencies]
 anyhow = "1.0.75"

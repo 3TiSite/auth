@@ -1,5 +1,5 @@
-código ${action}: ${code}
+código ${action} : ${code}
 
 Este código caducará nunha hora.
 
-Se non solicitaches ${action}, ignora este correo electrónico.
+Se non solicitaches ${action} , ignora este correo electrónico.

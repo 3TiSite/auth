@@ -1,3 +1,4 @@
+use jarg::{jarg, json};
 use t3::HeaderMap;
 
 use crate::{
@@ -5,10 +6,11 @@ use crate::{
   i18n, throw,
 };
 
-pub async fn post(header: HeaderMap, json: String) -> t3::msg!() {
-  captcha::verify(&header).await?;
-  let (account, password): (String, String) = sonic_rs::from_str(&json)?;
-
+pub async fn post(
+  _: captcha::Captcha,
+  header: HeaderMap,
+  jarg!(account, password): json!(String, String),
+) -> t3::msg!() {
   let account = xmail::norm(account);
   let (host, host_id) = host::by_header(&header).await?;
 

@@ -9,22 +9,24 @@ anyhow = "1.0.75"
 t3 = { path = "../../../rust/lib/t3" }
 click_captcha = "0.1.15"
 rand = "0.8.5"
-sonic-rs = "0.2.5"
-tokio = { version = "1.34.0", features = [
+sonic-rs = "0.2.6"
+tokio = { version = "1.35.0", features = [
   "macros",
   "rt",
   "rt-multi-thread",
   "time",
   "sync"
 ] }
-trt = "0.1.15"
+trt = "0.1.16"
 vb = "0.0.7"
 r = { path = "../../../rust/lib/r" }
 intbin = "0.1.2"
 prost = "0.12.3"
 tracing = "0.1.40"
+# apart = "0.1.4"
+apart = { path = "/Volumes/d/3Ti/rust/apart" }
 
 [build-dependencies]
 anyhow = "1.0.75"
-genv = "0.1.1"
+genv = "0.1.5"
 prost-build = "0.12.3"

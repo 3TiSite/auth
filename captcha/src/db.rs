@@ -1,10 +1,11 @@
+use intbin::u64_bin;
+use prost::Message;
 use r::{
   fred::{interfaces::KeysInterface, prelude::Expiration},
   KV,
 };
-use intbin::u64_bin;
 use rand::Rng;
-use t3::{HeaderMap, StatusCode};
+use t3::{axum::http::header::CONTENT_TYPE, StatusCode};
 
 use crate::api;
 
@@ -14,17 +15,34 @@ pub const SCALE: u32 = 2;
 pub const SIZE: u32 = 420;
 const JS_MAX_SAFE_INTEGER: u64 = (1u64 << 53) - 1;
 
-pub async fn verify(header: &HeaderMap) -> t3::Result<()> {
-  _verify(
-    header
-      .get("content-type")
-      .map(|v| v.to_str().unwrap_or(""))
-      .unwrap_or(""),
-  )
-  .await
+pub struct Captcha();
+
+apart::from_request_parts!(Captcha, async move |parts: &mut apart::Parts| {
+  if let Some(Ok(content_type)) = parts.headers.get(CONTENT_TYPE).map(|i| i.to_str()) {
+    verify(content_type).await
+  } else {
+    err().await
+  }
+});
+// pub async fn verify(header: &HeaderMap) -> t2::Result<()> {
+//   _verify(
+//     header
+//       .get("content-type")
+//       .map(|v| v.to_str().unwrap_or(""))
+//       .unwrap_or(""),
+//   )
+//   .await
+// }
+//
+
+async fn err<T>() -> anyhow::Result<T> {
+  apart::err(
+    StatusCode::PRECONDITION_FAILED,
+    new().await?.encode_to_vec(),
+  )?
 }
 
-async fn _verify(json: &str) -> t3::Result<()> {
+async fn verify(json: &str) -> anyhow::Result<Captcha> {
   let json: Vec<u64> = sonic_rs::from_str(json)?;
   if json.len() == 7 {
     let key = u64_bin(json[0]);
@@ -33,13 +51,12 @@ async fn _verify(json: &str) -> t3::Result<()> {
       trt::spawn!(async move { KV.del::<(), _>(&*key).await });
       if let Ok(val) = vb::d(val) {
         if click_captcha::verify(&val, &json[1..], SCALE as _) {
-          return Ok(());
+          return Ok(Captcha());
         }
       }
     }
   }
-
-  t3::err(StatusCode::PRECONDITION_FAILED, new().await?)
+  err().await?
 }
 
 pub async fn new() -> anyhow::Result<api::Captcha> {

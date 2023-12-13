@@ -4,8 +4,8 @@ mail: Meil
 invalid: Kehtetu
 code: Kinnituskood
 accountExist: See konto on juba olemas, logige otse sisse
-accountNotExist: Kontot pole olemas, palun registreeruge esmalt
-passwordError: Parooliviga, ununemise korral lähtestage
+accountNotExist: Kontot pole olemas, palun registreeruge kõigepealt
+passwordError: Parooliviga, unustamise korral lähtestage
 mailUsed: Seda e-posti on juba kasutanud teised
 modifyMail: Muuda meili
 banMail: Keela ühekordselt kasutatava meili registreerimine

@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Dieser Code läuft in einer Stunde ab.
 

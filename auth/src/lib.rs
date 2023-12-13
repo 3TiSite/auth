@@ -14,6 +14,7 @@ mod i18n;
 mod lua;
 use client::Client;
 use intbin::u64_bin;
+use jarg::{jarg, json};
 use t3::{ok, ConnectInfo, HeaderMap};
 
 pub const SIGN_UP: u8 = 0; // 注册
@@ -73,15 +74,12 @@ impl From<String> for Fingerprint {
 }
 
 pub async fn post(
+  _: captcha::Captcha,
   ConnectInfo(addr): ConnectInfo<std::net::SocketAddr>,
   client: Client,
   header: HeaderMap,
-  json: String,
+  jarg!(fingerprint, action, account, password): json!(String, u8, String, String),
 ) -> t3::msg!() {
-  captcha::verify(&header).await?;
-  let (fingerprint, action, account, password): (String, u8, String, String) =
-    sonic_rs::from_str(&json)?;
-
   let account = xmail::norm(account);
   let host = &t3::origin_tld(&header)?;
 

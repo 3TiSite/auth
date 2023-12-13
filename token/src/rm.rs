@@ -1,10 +1,10 @@
 use client::Client;
+use jarg::{jarg, json};
 use r::fred::interfaces::HashesInterface;
 
 use crate::K;
 
-pub async fn post(client: Client, json: String) -> t3::msg!() {
-  let token_id: u64 = sonic_rs::from_str(&json)?;
+pub async fn post(client: Client, jarg!(token_id): json!(u64)) -> t3::msg!() {
   let uid = client.logined().await?;
 
   if m::tokenRm!(uid, token_id) > 0 {

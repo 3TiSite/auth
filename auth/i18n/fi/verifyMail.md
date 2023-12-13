@@ -1,5 +1,5 @@
-${action}: ${code}
+${action} : ${code}
 
 Tämä koodi vanhenee tunnin kuluttua.
 
-Jos et ole hakenut ${action}, jätä tämä sähköposti huomioimatta.
+Jos et ole hakenut ${action} , jätä tämä sähköposti huomiotta.

@@ -1,12 +1,11 @@
 #[macro_export]
 macro_rules! client {
-  ($client:ident, $json:ident, $action:ident) => {{
+  ($client:ident, $json:ident, $action:ident, $uid:ident) => {{
     use intbin::u64_bin;
     use r::KV;
     use t3::ok;
-    let uid: u64 = sonic_rs::from_str(&$json)?;
+    let uid = $uid;
     let uid_bin = &u64_bin(uid)[..];
-
     let client = $client;
     let p = KV.pipeline();
     client.$action(&p, uid_bin).await?;

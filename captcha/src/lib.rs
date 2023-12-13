@@ -1,5 +1,7 @@
+#![feature(async_closure)]
+
 mod db;
-pub use db::verify;
+pub use db::Captcha;
 use tokio::time::{sleep, Duration, Instant};
 
 t3::api!();

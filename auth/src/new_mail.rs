@@ -1,4 +1,5 @@
 use client::Client;
+use jarg::{jarg, json};
 use t3::{ok, HeaderMap};
 use xmail::norm_tld;
 
@@ -29,9 +30,12 @@ pub async fn host_old_mail_new_mail(
   Ok((host, old_mail, new_mail))
 }
 
-pub async fn post(header: HeaderMap, client: Client, json: String) -> t3::msg!() {
-  captcha::verify(&header).await?;
-  let (uid, new_mail): (u64, String) = sonic_rs::from_str(&json)?;
+pub async fn post(
+  _: captcha::Captcha,
+  header: HeaderMap,
+  client: Client,
+  jarg!(uid, new_mail): json!(u64, String),
+) -> t3::msg!() {
   let (host, old_mail, new_mail) = host_old_mail_new_mail(&client, &header, uid, new_mail).await?;
 
   if !old_mail.is_empty() {

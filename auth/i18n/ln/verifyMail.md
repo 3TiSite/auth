@@ -1,4 +1,4 @@
-code ${action}: ${code} kosala
+code ${action} : ${code} kosala
 
 Code oyo ekosila na ngonga moko.
 

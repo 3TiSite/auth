@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Ity kaody ity dia ho tapitra afaka adiny iray.
 

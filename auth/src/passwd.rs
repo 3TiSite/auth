@@ -1,5 +1,6 @@
 use client::Client;
 use intbin::u64_bin;
+use jarg::{jarg, json};
 use t3::{ConnectInfo, HeaderMap};
 
 use crate::{
@@ -12,10 +13,8 @@ pub async fn post(
   ConnectInfo(addr): ConnectInfo<std::net::SocketAddr>,
   header: HeaderMap,
   client: Client,
-  json: String,
+  jarg!(fingerprint, account, passwd, code): json!(String, String, String, String),
 ) -> t3::msg!() {
-  let (fingerprint, account, passwd, code): (String, String, String, String) =
-    sonic_rs::from_str(&json)?;
   let account = xmail::norm(account);
   if !code::verify(i18n::RESET_PASSWORD, &account, &passwd, code) {
     throw!(header, code, CODE, INVALID)

@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Kay código nisqa huk horallapi tukukunqa.
 

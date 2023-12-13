@@ -1,11 +1,11 @@
 use client::Client;
+use jarg::{jarg, json};
 use r::fred::interfaces::HashesInterface;
 
 use crate::{db, K};
 
-pub async fn post(client: Client, json: String) -> t3::msg!() {
+pub async fn post(client: Client, jarg!(id, enable): json!(u64, i8)) -> t3::msg!() {
   let uid = client.logined().await?;
-  let (id, enable): (u64, i8) = sonic_rs::from_str(&json)?;
   let enable = if enable == 0 { 0 } else { 1 };
   let li: Option<(u64, u64)> = m::q01!(format!("CALL tokenTurn({uid},{id},{enable})"));
   if let Some((sk, day)) = li {

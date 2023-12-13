@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Dizze koade sil oer ien oere ferrinne.
 

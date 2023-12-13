@@ -1,11 +1,11 @@
 use client::Client;
 use intbin::u64_bin;
+use jarg::{jarg, json};
 use r::{fred::interfaces::HashesInterface, KV};
 
 use crate::db::name;
 
-pub async fn post(client: Client, json: String) -> t3::msg!() {
-  let (uid, name): (u64, String) = sonic_rs::from_str(&json)?;
+pub async fn post(client: Client, jarg!(uid, name): json!(u64, String)) -> t3::msg!() {
   let name = name::truncate(name);
   client.uid_logined(uid).await?;
 

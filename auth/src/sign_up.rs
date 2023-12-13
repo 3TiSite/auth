@@ -1,5 +1,6 @@
 use client::Client;
 use intbin::u64_bin;
+use jarg::{jarg, json};
 use r::{fred::interfaces::HashesInterface, KV};
 use t3::{ConnectInfo, HeaderMap};
 use xmail::norm_tld;
@@ -15,11 +16,10 @@ pub async fn post(
   ConnectInfo(addr): ConnectInfo<std::net::SocketAddr>,
   header: HeaderMap,
   client: Client,
-  json: String,
+  jarg!(fingerprint, account, passwd, verify_code, name): json!(
+    String, String, String, String, String
+  ),
 ) -> t3::msg!() {
-  let (fingerprint, account, passwd, verify_code, name): (String, String, String, String, String) =
-    sonic_rs::from_str(&json)?;
-
   let mut name = name.trim().to_owned();
   if name.is_empty() {
     name = if let Some(p) = account.find('@') {

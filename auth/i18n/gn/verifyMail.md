@@ -1,5 +1,5 @@
-${action}: ${code}
+${action} : ${code}
 
 Ko código ovenséta peteĩ aravópe.
 
-Nderejeruréiramo ${action}, emboyke mante ko kuatiañe’ẽ.
+Nderejeruréiramo ${action} , emboyke mante ko kuatiañe’ẽ.

@@ -8,4 +8,5 @@ set -ex
 source ./srv_host.sh
 
 ./hostNew.coffee $SRV_HOST
-../cron/banTld.coffee
+cd ../cron
+./banTld.coffee

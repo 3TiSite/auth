@@ -17,18 +17,16 @@ lang = { path = "../../../rust/lib/lang" }
 lazy_static = "1.4.0"
 prost = "0.12.3"
 sk = { path = "../../../rust/lib/sk" }
-sonic-rs = "0.2.5"
 t3 = { path = "../../../rust/lib/t3" }
 util = { path = "../../../rust/lib/util" }
 m = { path = "../../../rust/lib/m" }
-tokio = { version = "1.34.0", features = [
+tokio = { version = "1.35.0", features = [
   "macros",
   "rt",
   "rt-multi-thread",
   "time",
   "sync"
 ] }
-smtp = { path = "../../../rust/lib/smtp" }
 user = { path = "../../../rust/lib/user" }
 passwd = { path = "../../../rust/lib/passwd" }
 mark = { path = "../../../rust/lib/mark" }
@@ -42,11 +40,13 @@ base64 = "0.21.5"
 xmail = "0.1.5"
 xtld = "0.1.1"
 vb = "0.0.7"
-trt = "0.1.15"
+trt = "0.1.16"
 ws = { path = "../ws" }
 sts = "0.1.4"
+xsmtp = "0.1.1"
+jarg = "0.1.6"
 
 [build-dependencies]
 anyhow = "1.0.75"
-genv = "0.1.1"
+genv = "0.1.5"
 prost-build = "0.12.3"

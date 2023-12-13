@@ -1,5 +1,5 @@
-${action} code: ${code}
+kodhi ${action} : ${code}
 
 Kodhi iyi inopera muawa imwe chete.
 
-Kana usati wanyorera kuti ${action}, ingofuratira iyi email.
+Kana usati wanyorera ${action} , ingofuratira iyi email.

@@ -1,4 +1,4 @@
-${action}: ${code}
+${action} : ${code}
 
 Deze code vervalt over een uur.
 
